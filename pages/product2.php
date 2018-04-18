@@ -437,15 +437,27 @@ function changeValue(){
  </div>
  <!--end of modal--> 
 <?php }?>					  
-                    </tbody>
-                  </form> 
-                  </table>
-                  <input type="hidden" id="startrow" value="<?php echo $startrow; ?>"></input>
-                  <input type="hidden" id="limit" value="<?php echo $limit; ?>"></input>
-                  <button type="submit" id="btn_delete" class="btn btn-primary">Delete selected</button>
-                  <button type="submit" id="btn_next" class="btn btn-primary right" style="float: right;">Next</button>
-                  <button type="submit" id="btn_prev" class="btn btn-primary" style="float: right;">Previous</button>
-
+                        </tbody>
+                    </form> 
+                    </table>
+                    <button type="submit" id="btn_delete" class="btn btn-primary">Delete selected</button>
+                    <button type="submit" id="btn_next" class="btn btn-primary right" style="float: right;">Next</button>
+                    <?php
+                    if(($startrow-$limit)<0)
+                    {
+                        $prevstartrow = 0;
+                    }
+                    else
+                    {
+                        $prevstartrow = $startrow-$limit;
+                    }
+                    if($startrow>0){ ?>
+                        <button type="submit" id="btn_prev" class="btn btn-primary" style="float: right;">Previous</button>
+                    <input type="hidden" id="prevstartrow" value="<?php echo $prevstartrow; ?>"></input>
+                    <input type="hidden" id="nextstartrow" value="<?php echo ($startrow+$limit); ?>"></input>
+                    <input type="hidden" id="startrow" value="<?php echo $startrow; ?>"></input>
+                    <input type="hidden" id="limit" value="<?php echo $limit; ?>"></input>
+                    <?php } ?>    
                 </div><!-- /.box-body -->
  
             </div><!-- /.col -->
@@ -676,13 +688,13 @@ function changeValues(){
         
         $("#btn_next").click(function () {
             limit = Number($("#limit").val());
-            startrow = Number($("#startrow").val());
+            startrow = Number($("#nextstartrow").val());
             window.location.href = ( "?startrow="+ startrow + "&limit=" + limit);
         });
 
         $("#btn_prev").click(function () {
             limit = Number($("#limit").val());
-            startrow = Number($("#startrow").val());
+            startrow = Number($("#prevstartrow").val());
             window.location.href = ("?startrow="+ startrow + "&limit=" + limit);
         });
 

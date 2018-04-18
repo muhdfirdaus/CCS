@@ -712,6 +712,7 @@ function changeValues(){
         //   "autoWidth": false
         // });
         checkboxChecker();
+        pagination_check();
         
         $("#btn_next").click(function () {
             limit = Number($("#limit").val());
@@ -760,7 +761,18 @@ function changeValues(){
             checkboxChecker();
         });
 
+        function pagination_check(){
+            limit = Number($("#limit").val());
+            startrow = Number($("#startrow").val());
+            total_list = Number($("#total_list").val());
 
+            if(startrow + (limit * 2 ) > total_list){
+                document.getElementById("btn_next").disabled = true;
+            }
+            else{
+                document.getElementById("btn_next").disabled = false;
+            }
+        }
         function checkboxChecker(){
             var valid = true, message = '';
 

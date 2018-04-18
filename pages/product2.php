@@ -84,10 +84,12 @@ endif;
                   <h3 class="box-title">Calibration List</h3>
                 </div><!-- /.box-header -->
                 <div style="width:100%" class="box-body">
+                <form id="delete_list" method="POST" name="delete_list" action="delete_list.php">
                   <table style="font-size:10px" id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th>ID</th>
+                        <th class="info text-center"><input type="checkbox" id="checkAll" ></th>
+					    <th>ID</th>
                         <th>No.</th>
                         <th>Name</th>
                         <th>Model</th>
@@ -111,11 +113,11 @@ endif;
 		
 ?>
                       <tr>
-                      	<td><?php echo $row['equip_id'];?></td>
+                        <td class="info text-center"><input type="checkbox" class="check" id="check_id" value="<?php echo $row['equip_id'];?>"></th>
+				      	<td><?php echo $row['equip_id'];?></td>
                         <td><?php echo $row['equip_no'];?></td>
                         <td><?php echo $row['equip_name'];?></td>
-                        <td><?php echo $row['model'];?></td>
-						
+                        <td><?php echo $row['model'];?></td>						
 						<td><?php echo $row['manufacturer'];?></td>
                         <td><?php echo $row['category'];?></td>
 						<td><?php echo $row['location'];?></td>
@@ -123,9 +125,7 @@ endif;
             			<td><?php echo $row['creation_date'];?></td>
             			<td><?php echo $row['due_date'];?></td>
 						<td><?php echo $row['dept'];?></td>
-						<td><?php echo $row['remark'];?></td>
-						
-						
+						<td><?php echo $row['remark'];?></td>						
                         <td>
 				            <a href="#updateordinance<?php echo $row['equip_id'];?>" data-target="#updateordinance<?php echo $row['equip_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-edit text-blue"></i></a>
 			            </td>
@@ -266,17 +266,16 @@ function changeValue(){
 		 <div class="form-group">
           <label class="control-label col-lg-3" for="file">Status</label>
           <div class="col-lg-9"><input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['equip_id'];?>" required> 
-              <select class="form-control select2" style="width: 100%;"  name="remark" required>
-              
+              <select class="form-control select2" style="width: 100%;"  name="remark" required>              
 				<option id="Active" value="Active">Active</option>
-<option id="Inactive" value="Inactive">Inactive</option>
-<option id="Closed" value="Closed">Closed</option>
-<option id="PSNM" value="PSNM">PSNM Equipment</option>
-<option id="OOS" value="OOS">Out of Service</option>
-<option id="Consign" value="Consign">Consign</option>
-<option id="Spoiled" value="Spoiled">Spoiled</option>
-<option id="Missing" value="Missing">Missing</option>
-<option id="Repair" value="Repair">Repair</option>
+                <option id="Inactive" value="Inactive">Inactive</option>
+                <option id="Closed" value="Closed">Closed</option>
+                <option id="PSNM" value="PSNM">PSNM Equipment</option>
+                <option id="OOS" value="OOS">Out of Service</option>
+                <option id="Consign" value="Consign">Consign</option>
+                <option id="Spoiled" value="Spoiled">Spoiled</option>
+                <option id="Missing" value="Missing">Missing</option>
+                <option id="Repair" value="Repair">Repair</option>
               </select>
           </div>
         </div> 
@@ -286,17 +285,14 @@ function changeValue(){
               <select class="form-control select2" style="width: 100%;" name="validation" required>
                 <option disabled selected value>-- Please Select --</option>
 				<option id="NoAccreditation" value="NoAccreditation">No Accreditation</option>
-<option id="Accreditation" value="Accreditation">Accreditation</option>
-
-
+                <option id="Accreditation" value="Accreditation">Accreditation</option>
               </select>
           </div>
         </div> 
               
 			 </div>
-              <div class="modal-footer">
-			
-    <button type="submit" class="btn btn-primary">Save Changes</button>
+              <div class="modal-footer">			
+                <button type="submit" class="btn btn-primary">Save Changes</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               </div>
         </form>
@@ -422,8 +418,8 @@ function changeValue(){
               
 			 </div>
               <div class="modal-footer">
-			  <button type="submit" value="Print" onclick="PrintDoc()" class="btn btn-primary">Print</button>
-    <button type="submit" value="Send" class="btn btn-primary">Send Email</button>
+                <button type="submit" value="Print" onclick="PrintDoc()" class="btn btn-primary">Print</button>
+                <button type="submit" value="Send" class="btn btn-primary">Send Email</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               </div>
         </form>
@@ -434,8 +430,10 @@ function changeValue(){
  <!--end of modal--> 
 <?php }?>					  
                     </tbody>
-                   
+                  </form> 
                   </table>
+                  <button type="submit" id="btn_delete" class="btn btn-primary">Delete selected</button>
+
                 </div><!-- /.box-body -->
  
             </div><!-- /.col -->
@@ -523,13 +521,13 @@ function changeValue(){
         <div class="form-group">
           <label class="control-label col-lg-3" for="file">Interval</label>
           <div class="col-lg-9">
-                <select class="form-control select2" style="width: 100%;" name="status" id="filterx" onchange="changeValues();" required>
-	 <option disabled selected value>--Please Select --</option>
-<option id="six" value="six">6 Month(s)</option>
-<option id="one" value="one">1 Year</option>
-<option id="two" value="two">2 Year(s)</option>
-<option id="three" value="three">3 Year(s)</option>
-</select>
+            <select class="form-control select2" style="width: 100%;" name="status" id="filterx" onchange="changeValues();" required>
+                <option disabled selected value>--Please Select --</option>
+                <option id="six" value="six">6 Month(s)</option>
+                <option id="one" value="one">1 Year</option>
+                <option id="two" value="two">2 Year(s)</option>
+                <option id="three" value="three">3 Year(s)</option>
+            </select>
           </div>
         </div> 
         <!--script type="text/javascript">
@@ -572,9 +570,9 @@ function changeValues(){
            <select class="form-control select2" style="width: 100%;" name="dept" required>
                 <option disabled selected value>-- Please Select --</option>
 				<option id="QA" value="QA">QA</option>
-<option id="Engineering" value="Engineering">Engineering</option>
-<option id="TEST" value="TEST">TEST ENG</option>
-<option id="Production" value="Production">Production</option>
+                <option id="Engineering" value="Engineering">Engineering</option>
+                <option id="TEST" value="TEST">TEST ENG</option>
+                <option id="Production" value="Production">Production</option>
 
               </select>
           </div>
@@ -604,8 +602,8 @@ function changeValues(){
               <select class="form-control select2" style="width: 100%;" name="remark" required>
                 <option disabled selected value>-- Please Select --</option>
 				<option id="Active" value="Active">Active</option>
-<option id="Inactive" value="Inactive">Inactive</option>
-<option id="Closed" value="Repaired">Closed</option>
+                <option id="Inactive" value="Inactive">Inactive</option>
+                <option id="Closed" value="Repaired">Closed</option>
               </select>
           </div>
         </div> 
@@ -615,11 +613,11 @@ function changeValues(){
               <select class="form-control select2" style="width: 100%;" name="validation" required>
                 <option disabled selected value>-- Please Select --</option>
 				<option id="NoAccreditation" value="NoAccreditation">No Accreditation</option>
-<option id="Accreditation" value="Accreditation">Accreditation</option>
-<option id="PSNM" value="PSNM">PSNM Equipment</option>
-<option id="OOS" value="OOS">Out of Service</option>
-<option id="Consign" value="Consign">Consign</option>
-<option id="Spoil" value="Spoil">Spoil</option>
+                <option id="Accreditation" value="Accreditation">Accreditation</option>
+                <option id="PSNM" value="PSNM">PSNM Equipment</option>
+                <option id="OOS" value="OOS">Out of Service</option>
+                <option id="Consign" value="Consign">Consign</option>
+                <option id="Spoil" value="Spoil">Spoil</option>
 
               </select>
           </div>
@@ -654,14 +652,46 @@ function changeValues(){
     <script>
       $(function () {
         // $("#example1").DataTable();
-        $('#example2').DataTable({
-          "paging": true,
-          "lengthChange": false,
-          "searching": false,
-          "ordering": true,
-          "info": true,
-          "autoWidth": false
+        // $('#example2').DataTable({
+        //   "paging": true,
+        //   "lengthChange": false,
+        //   "searching": false,
+        //   "ordering": true,
+        //   "info": true,
+        //   "autoWidth": false
+        // });
+        checkboxChecker();
+
+        $("#checkAll").click(function () {
+            $(".check").not(':disabled').prop('checked', $(this).prop('checked'));
+            checkboxChecker();
         });
+
+        $(".check").click(function () {
+            checkboxChecker();
+        });
+
+
+        function checkboxChecker(){
+            var valid = true, message = '';
+
+            $('.check').each(function() {
+
+                if ($(this).is(':checked') &&  $(this).is(':enabled')) {
+                    valid = false;
+                }
+            });
+
+            if(valid) {
+                if(document.getElementById("btn_delete") != null){
+                document.getElementById("btn_delete").disabled = true;
+                }
+            }else{
+                if(document.getElementById("btn_delete") != null){
+                document.getElementById("btn_delete").disabled = false;
+                }
+            }
+        }
       });
     </script>
   </body>

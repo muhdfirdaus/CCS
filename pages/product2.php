@@ -84,6 +84,7 @@ endif;
         ?>
 
           <!-- Main content -->
+          
           <section class="content">
             <div class="row">
 	     
@@ -96,7 +97,21 @@ endif;
                 </div><!-- /.box-header -->
                 <div style="width:100%" class="box-body">
                 <form id="delete_list" method="POST" name="delete_list" action="delete_list.php">
-                  <table style="font-size:10px" id="example1" class="table table-bordered table-striped">
+                <table>
+                    <tr>
+                        <td>Show</td>
+                        <td>
+                            <select id="limit_select">
+                                <option value=10 <?php if($limit==10){echo "selected";} ?> >10</option>
+                                <option value=25 <?php if($limit==25){echo "selected";} ?> >25</option>
+                                <option value=50 <?php if($limit==50){echo "selected";}?>>50</option>
+                                <option value=100 <?php if($limit==100){echo "selected";}?>>100</option>
+                            </select>
+                        </td>
+                        <td>entries</td>
+                    </tr>
+                </table>
+                <table style="font-size:10px" id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
                         <th class="info text-center"><input type="checkbox" id="checkAll" ></th>
@@ -712,7 +727,6 @@ function changeValues(){
 
         $("#btn_first").click(function () {
             limit = Number($("#limit").val());
-            startrow = Number($("#prevstartrow").val());
             window.location.href = ("?startrow=0&limit=" + limit);
         });
 
@@ -721,6 +735,20 @@ function changeValues(){
             total_list = Number($("#total_list").val());
             startrow = total_list - limit;
             window.location.href = ("?startrow="+ startrow + "&limit=" + limit);
+        });
+
+        $('#limit_select').on('change',function(){
+            limit = Number($("#limit_select").val());
+            startrow = Number($("#startrow").val());
+            total_list = Number($("#total_list").val());
+            if((limit + startrow)<= total_list)
+            {
+                window.location.href = ( "?startrow="+ startrow + "&limit=" + limit);
+            }
+            else
+            {
+                window.location.href = ( "?startrow="+ (total_list - limit) + "&limit=" + limit);
+            }
         });
 
         $("#checkAll").click(function () {

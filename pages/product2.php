@@ -440,6 +440,8 @@ function changeValue(){
                         </tbody>
                     </form> 
                     </table>
+                    <input type="hidden" id="startrow" value="<?php echo $startrow; ?>"></input>
+                    <input type="hidden" id="limit" value="<?php echo $limit; ?>"></input>
                     <button type="submit" id="btn_delete" class="btn btn-primary">Delete selected</button>
                     <button type="submit" id="btn_next" class="btn btn-primary right" style="float: right;">Next</button>
                     <?php
@@ -453,10 +455,9 @@ function changeValue(){
                     }
                     if($startrow>0){ ?>
                         <button type="submit" id="btn_prev" class="btn btn-primary" style="float: right;">Previous</button>
-                    <input type="hidden" id="prevstartrow" value="<?php echo $prevstartrow; ?>"></input>
-                    <input type="hidden" id="nextstartrow" value="<?php echo ($startrow+$limit); ?>"></input>
-                    <input type="hidden" id="startrow" value="<?php echo $startrow; ?>"></input>
-                    <input type="hidden" id="limit" value="<?php echo $limit; ?>"></input>
+                        <input type="hidden" id="prevstartrow" value="<?php echo $prevstartrow; ?>"></input>
+                        <input type="hidden" id="nextstartrow" value="<?php echo ($startrow+$limit); ?>"></input>
+                        
                     <?php } ?>    
                 </div><!-- /.box-body -->
  
@@ -688,7 +689,7 @@ function changeValues(){
         
         $("#btn_next").click(function () {
             limit = Number($("#limit").val());
-            startrow = Number($("#nextstartrow").val());
+            startrow = Number($("#startrow").val()) + limit;
             window.location.href = ( "?startrow="+ startrow + "&limit=" + limit);
         });
 

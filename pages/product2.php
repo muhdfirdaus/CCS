@@ -77,6 +77,9 @@ endif;
         isset($_GET['startrow'])? $startrow = $_GET['startrow'] : $startrow = 0;
         isset($_GET['limit'])? $limit = $_GET['limit'] : $limit = 10;
 
+        $sql = mysqli_query($con,"select count(*) from product where branch_id='$branch'  order by equip_id ")or die(mysqli_error());
+        $result = mysqli_fetch_array($sql);
+        $total_list = $result[0];
 
         ?>
 
@@ -440,12 +443,17 @@ function changeValue(){
                         </tbody>
                     </form> 
                     </table>
+
+                    <input type="hidden" id="total_list" value="<?php echo $total_list; ?>"></input>
                     <input type="hidden" id="startrow" value="<?php echo $startrow; ?>"></input>
                     <input type="hidden" id="limit" value="<?php echo $limit; ?>"></input>
                     <button type="submit" id="btn_delete" class="btn btn-primary">Delete selected</button>
                     <button type="submit" id="btn_last" class="btn btn-primary right" style="float: right;">Last</button>
                     <button type="submit" id="btn_next" class="btn btn-primary right" style="float: right;">Next</button>
+                    
                     <?php
+                    //setting up value and variable for js purposes
+
                     if(($startrow-$limit)<0)
                     {
                         $prevstartrow = 0;
@@ -710,7 +718,8 @@ function changeValues(){
 
         $("#btn_last").click(function () {
             limit = Number($("#limit").val());
-            startrow = Number($("#prevstartrow").val());
+            total_list = Number($("#total_list").val());
+            startrow = total_list - limit;
             window.location.href = ("?startrow="+ startrow + "&limit=" + limit);
         });
 

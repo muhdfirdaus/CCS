@@ -17,10 +17,14 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo "id: " . $row["equip_id"]. " - Created: " . $row["creation_date"]. " - Expired: " . $row["due_date"]. "<br>";
+        // echo "id: " . $row["equip_id"]. " - Created: " . $row["creation_date"]. " - Expired: " . $row["due_date"]."new>> ". date("Y-m-d", strtotime($row["creation_date"])) ."<br>";
+        $new_due = date("Y-m-d", strtotime($row["due_date"]));
+        $new_cre = date("Y-m-d", strtotime($row["creation_date"]));
+        $sql = 'UPDATE product SET creation_date = "'. $new_cre.'", due_date = "'.$new_due.'" where equip_id ='. $row["equip_id"];
+        $conn->query($sql);
     }
 } else {
-    echo "0 results";
+    // echo "0 results";
 }
 $conn->close();
 ?>

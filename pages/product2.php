@@ -96,7 +96,6 @@ endif;
                   <h3 class="box-title">Calibration List</h3>
                 </div><!-- /.box-header -->
                 <div style="width:100%" class="box-body">
-                <form id="delete_list" method="POST" name="delete_list" action="delete_list.php">
                 <table>
                     <tr>
                         <td>Show</td>
@@ -111,6 +110,7 @@ endif;
                         <td>entries</td>
                     </tr>
                 </table>
+                <form id="delete_list" method="post" name="delete_list" action="delete_list.php" enctype='multipart/form-data'>
                 <table style="font-size:10px" id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
@@ -139,7 +139,7 @@ endif;
 		
         ?>
                       <tr>
-                        <td class="info text-center"><input type="checkbox" class="check" id="check_id" value="<?php echo $row['equip_id'];?>"></th>
+                        <td class="info text-center"><input type="checkbox" class="check" id="check_id" value="<?php echo $row['equip_id'];?>"></input></td>
 				      	<td><?php echo $row['equip_id'];?></td>
                         <td><?php echo $row['equip_no'];?></td>
                         <td><?php echo $row['equip_name'];?></td>
@@ -462,7 +462,7 @@ function changeValue(){
                     <input type="hidden" id="total_list" value="<?php echo $total_list; ?>"></input>
                     <input type="hidden" id="startrow" value="<?php echo $startrow; ?>"></input>
                     <input type="hidden" id="limit" value="<?php echo $limit; ?>"></input>
-                    <button type="submit" id="btn_delete" class="btn btn-primary">Delete selected</button>
+                    <button type="submit" id="btn_delete" class="btn btn-primary" name="btn_delete">Delete selected</button>
                     <button type="submit" id="btn_last" class="btn btn-primary right" style="float: right;">Last</button>
                     <button type="submit" id="btn_next" class="btn btn-primary right" style="float: right;">Next</button>
                     
@@ -755,6 +755,10 @@ function changeValues(){
         $("#checkAll").click(function () {
             $(".check").not(':disabled').prop('checked', $(this).prop('checked'));
             checkboxChecker();
+        });
+        
+        $("#btn_delete").click(function () {
+            document.getElementById("delete_list").submit();
         });
 
         $(".check").click(function () {

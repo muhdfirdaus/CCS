@@ -71,6 +71,14 @@ endif;
               <li class="active">Equipment</li>
             </ol>
           </section>
+        
+        <?php
+        //Try to get limit and start row from URL and assign default value
+        isset($_GET['startrow'])? $startrow = $_GET['startrow'] : $startrow = 0;
+        isset($_GET['limit'])? $limit = $_GET['limit'] : $limit = 10;
+
+
+        ?>
 
           <!-- Main content -->
           <section class="content">
@@ -106,12 +114,12 @@ endif;
                       </tr>
                     </thead>
                     <tbody>
-<?php
+        <?php
 		
-		$query=mysqli_query($con,"select * from product where branch_id='$branch'  order by equip_id limit 30 ")or die(mysqli_error());
-		while($row=mysqli_fetch_array($query)){
+            $query=mysqli_query($con,"select * from product where branch_id='$branch'  order by equip_id limit $startrow,$limit ")or die(mysqli_error());
+            while($row=mysqli_fetch_array($query)){
 		
-?>
+        ?>
                       <tr>
                         <td class="info text-center"><input type="checkbox" class="check" id="check_id" value="<?php echo $row['equip_id'];?>"></th>
 				      	<td><?php echo $row['equip_id'];?></td>
@@ -432,7 +440,11 @@ function changeValue(){
                     </tbody>
                   </form> 
                   </table>
+                  <input type="hidden" id="startrow" value="<?php echo $startrow; ?>"></input>
+                  <input type="hidden" id="limit" value="<?php echo $limit; ?>"></input>
                   <button type="submit" id="btn_delete" class="btn btn-primary">Delete selected</button>
+                  <button type="submit" id="btn_next" class="btn btn-primary right" style="float: right;">Next</button>
+                  <button type="submit" id="btn_prev" class="btn btn-primary" style="float: right;">Previous</button>
 
                 </div><!-- /.box-body -->
  
@@ -661,6 +673,18 @@ function changeValues(){
         //   "autoWidth": false
         // });
         checkboxChecker();
+        
+        $("#btn_next").click(function () {
+            limit = Number($("#limit").val());
+            startrow = Number($("#startrow").val());
+            window.location.href = ( "?startrow="+ startrow + "&limit=" + limit);
+        });
+
+        $("#btn_prev").click(function () {
+            limit = Number($("#limit").val());
+            startrow = Number($("#startrow").val());
+            window.location.href = ("?startrow="+ startrow + "&limit=" + limit);
+        });
 
         $("#checkAll").click(function () {
             $(".check").not(':disabled').prop('checked', $(this).prop('checked'));

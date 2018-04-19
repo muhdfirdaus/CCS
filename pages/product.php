@@ -779,6 +779,17 @@ function changeValues(){
             document.getElementById("delete_list").submit();
         });
 
+        $("#btn_search").click(function () {
+            searchBy = $("#search_by").val();
+            searchVal = $("#search_val").val();
+            if(searchVal.trim() == "")
+            {
+              alert("Please insert value in the search box.");
+            }
+            else
+            alert("Search by->" + searchBy + " // Search value->" + searchVal);
+        });
+
         $(".check").click(function () {
             checkboxChecker();
         });

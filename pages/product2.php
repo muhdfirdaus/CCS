@@ -205,7 +205,7 @@ endif;
               $query2=mysqli_query($con,"select * from location order by location_name")or die(mysqli_error());
                 while($row2=mysqli_fetch_array($query2)){
                 ?>
-                  <option value="<?php echo $row2['location_name'];?>"><?php echo $row2['location_name'];?></option>
+                  <option value="<?php echo $row2['location_name'];?>"<?php if($row2['location_name']==$row['location']){echo "selected";} ?>><?php echo $row2['location_name'];?></option>
                 <?php }?>
               </select>
           </div>
@@ -478,13 +478,13 @@ function changeValue(){
                         $prevstartrow = $startrow-$limit;
                     }
                     if($startrow>0){ ?>
-                        <button type="submit" id="btn_prev" class="btn btn-primary" style="float: right;">Previous</button>
+                        <button type="button" id="btn_prev" class="btn btn-primary" style="float: right;">Previous</button>
                         <input type="hidden" id="prevstartrow" value="<?php echo $prevstartrow; ?>"></input>
                         <input type="hidden" id="nextstartrow" value="<?php echo ($startrow+$limit); ?>"></input>
                         
                     <?php } ?> 
                 
-                <button type="submit" id="btn_first" class="btn btn-primary right" style="float: right;">First</button>       
+                <button type="button" id="btn_first" class="btn btn-primary right" style="float: right;">First</button>       
                 </div><!-- /.box-body -->
  
             </div><!-- /.col -->

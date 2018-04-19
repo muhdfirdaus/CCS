@@ -71,20 +71,8 @@ endif;
               <li class="active">Equipment</li>
             </ol>
           </section>
-        
-        <?php
-        //Try to get limit and start row from URL and assign default value
-        isset($_GET['startrow'])? $startrow = $_GET['startrow'] : $startrow = 0;
-        isset($_GET['limit'])? $limit = $_GET['limit'] : $limit = 10;
-
-        $sql = mysqli_query($con,"select count(*) from product where branch_id='$branch'  order by equip_id ")or die(mysqli_error());
-        $result = mysqli_fetch_array($sql);
-        $total_list = $result[0];
-
-        ?>
 
           <!-- Main content -->
-          
           <section class="content">
             <div class="row">
 	     
@@ -96,66 +84,62 @@ endif;
                   <h3 class="box-title">Calibration List</h3>
                 </div><!-- /.box-header -->
                 <div style="width:100%" class="box-body">
-                <table>
-                    <tr>
-                        <td>Show</td>
-                        <td>
-                            <select id="limit_select">
-                                <option value=10 <?php if($limit==10){echo "selected";} ?> >10</option>
-                                <option value=25 <?php if($limit==25){echo "selected";} ?> >25</option>
-                                <option value=50 <?php if($limit==50){echo "selected";}?>>50</option>
-                                <option value=100 <?php if($limit==100){echo "selected";}?>>100</option>
-                            </select>
-                        </td>
-                        <td>entries</td>
-                    </tr>
-                </table>
-                <form id="delete_list" method="post" name="delete_list" action="delete_list.php" enctype='multipart/form-data'>
-                <table style="font-size:10px" id="example1" class="table table-bordered table-striped">
+                  <table style="font-size:10px" id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th class="info text-center"><input type="checkbox" id="checkAll" ></th>
-					              <th>ID</th>
+               <th>ID</th>
                         <th>No.</th>
                         <th>Name</th>
                         <th>Model</th>
-						            <th>Manufacturer</th>
-                        <th>Lab.</th>
-                        <th>Location</th>
-                        <th>Cert. No.</th>
-                        <th>Creation Date</th>
-                        <th>Due Date</th>
-                        <th>PIC</th>
-                        <th>Status</th>
-                        <th></th>
+						
+						<th>Manufacturer</th>
+                        
+            						<th>Lab.</th>
+									<th>Location</th>
+									
+									<th>Cert. No.</th>
+            						<th>Creation Date</th>
+									<th>Due Date</th>
+									<th>PIC</th>
+									<th>Status</th>
+								<th></th>
+								<th></th>
 								
                       </tr>
                     </thead>
                     <tbody>
-        <?php
+<?php
 		
-            $query=mysqli_query($con,"select * from product where branch_id='$branch'  order by equip_id limit $startrow,$limit ")or die(mysqli_error());
-            while($row=mysqli_fetch_array($query)){
+		$query=mysqli_query($con,"select * from product where branch_id='$branch'  order by equip_id  ")or die(mysqli_error());
+		while($row=mysqli_fetch_array($query)){
 		
-        ?>
+?>
                       <tr>
-                        <td class="info text-center"><input type="checkbox" class="check" name="check_id[]"id="check_id" value="<?php echo $row['equip_id'];?>"></input></td>
-				      	<td><?php echo $row['equip_id'];?></td>
+                      	<td><?php echo $row['equip_id'];?></td>
                         <td><?php echo $row['equip_no'];?></td>
                         <td><?php echo $row['equip_name'];?></td>
-                        <td><?php echo $row['model'];?></td>						
-                        <td><?php echo $row['manufacturer'];?></td>
+                        <td><?php echo $row['model'];?></td>
+						
+						<td><?php echo $row['manufacturer'];?></td>
                         <td><?php echo $row['category'];?></td>
-                        <td><?php echo $row['location'];?></td>
-                        <td><?php echo $row['cert_no'];?></td>
-                        <td><?php echo $row['creation_date'];?></td>
-                        <td><?php echo $row['due_date'];?></td>
-                        <td><?php echo $row['dept'];?></td>
-                        <td><?php echo $row['remark'];?></td>						
+						<td><?php echo $row['location'];?></td>
+						<td><?php echo $row['cert_no'];?></td>
+            			<td><?php echo $row['creation_date'];?></td>
+            			<td><?php echo $row['due_date'];?></td>
+						<td><?php echo $row['dept'];?></td>
+						<td><?php echo $row['remark'];?></td>
+						
+						
                         <td>
-				                  <a href="#updateordinance<?php echo $row['equip_id'];?>" data-target="#updateordinance<?php echo $row['equip_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-edit text-blue"></i></a>
-			                  </td>
-                      </tr></form> 
+				<a href="#updateordinance<?php echo $row['equip_id'];?>" data-target="#updateordinance<?php echo $row['equip_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-edit text-blue"></i></a>
+			
+						</td>
+						
+						 <td>
+				<a href="#sendordinance<?php echo $row['equip_id'];?>" data-target="#sendordinance<?php echo $row['equip_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-envelope text-blue"></i></a>
+			
+						</td>
+                      </tr>
 <div id="updateordinance<?php echo $row['equip_id'];?>" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
 	
  <div class="modal-dialog">
@@ -205,7 +189,7 @@ endif;
               $query2=mysqli_query($con,"select * from location order by location_name")or die(mysqli_error());
                 while($row2=mysqli_fetch_array($query2)){
                 ?>
-                  <option value="<?php echo $row2['location_name'];?>"<?php if($row2['location_name']==$row['location']){echo "selected";} ?>><?php echo $row2['location_name'];?></option>
+                  <option value="<?php echo $row2['location_name'];?>"><?php echo $row2['location_name'];?></option>
                 <?php }?>
               </select>
           </div>
@@ -292,16 +276,17 @@ function changeValue(){
 		 <div class="form-group">
           <label class="control-label col-lg-3" for="file">Status</label>
           <div class="col-lg-9"><input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['equip_id'];?>" required> 
-              <select class="form-control select2" style="width: 100%;"  name="remark" required>              
+              <select class="form-control select2" style="width: 100%;"  name="remark" required>
+              
 				<option id="Active" value="Active">Active</option>
-                <option id="Inactive" value="Inactive">Inactive</option>
-                <option id="Closed" value="Closed">Closed</option>
-                <option id="PSNM" value="PSNM">PSNM Equipment</option>
-                <option id="OOS" value="OOS">Out of Service</option>
-                <option id="Consign" value="Consign">Consign</option>
-                <option id="Spoiled" value="Spoiled">Spoiled</option>
-                <option id="Missing" value="Missing">Missing</option>
-                <option id="Repair" value="Repair">Repair</option>
+<option id="Inactive" value="Inactive">Inactive</option>
+<option id="Closed" value="Closed">Closed</option>
+<option id="PSNM" value="PSNM">PSNM Equipment</option>
+<option id="OOS" value="OOS">Out of Service</option>
+<option id="Consign" value="Consign">Consign</option>
+<option id="Spoiled" value="Spoiled">Spoiled</option>
+<option id="Missing" value="Missing">Missing</option>
+<option id="Repair" value="Repair">Repair</option>
               </select>
           </div>
         </div> 
@@ -311,14 +296,17 @@ function changeValue(){
               <select class="form-control select2" style="width: 100%;" name="validation" required>
                 <option disabled selected value>-- Please Select --</option>
 				<option id="NoAccreditation" value="NoAccreditation">No Accreditation</option>
-                <option id="Accreditation" value="Accreditation">Accreditation</option>
+<option id="Accreditation" value="Accreditation">Accreditation</option>
+
+
               </select>
           </div>
         </div> 
               
 			 </div>
-              <div class="modal-footer">			
-                <button type="submit" class="btn btn-primary">Save Changes</button>
+              <div class="modal-footer">
+			
+    <button type="submit" class="btn btn-primary">Save Changes</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               </div>
         </form>
@@ -444,8 +432,8 @@ function changeValue(){
               
 			 </div>
               <div class="modal-footer">
-                <button type="submit" value="Print" onclick="PrintDoc()" class="btn btn-primary">Print</button>
-                <button type="submit" value="Send" class="btn btn-primary">Send Email</button>
+			  <button type="submit" value="Print" onclick="PrintDoc()" class="btn btn-primary">Print</button>
+    <button type="submit" value="Send" class="btn btn-primary">Send Email</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               </div>
         </form>
@@ -455,36 +443,9 @@ function changeValue(){
  </div>
  <!--end of modal--> 
 <?php }?>					  
-                        </tbody>
-                    
-                    </table>
-
-                    <input type="hidden" id="total_list" value="<?php echo $total_list; ?>"></input>
-                    <input type="hidden" id="startrow" value="<?php echo $startrow; ?>"></input>
-                    <input type="hidden" id="limit" value="<?php echo $limit; ?>"></input>
-                    <button type="button" id="btn_delete" class="btn btn-primary" name="btn_delete">Delete selected</button>
-                    <button type="button" id="btn_last" class="btn btn-primary right" style="float: right;">Last</button>
-                    <button type="button" id="btn_next" class="btn btn-primary right" style="float: right;">Next</button>
-                    
-                    <?php
-                    //setting up value and variable for js purposes
-
-                    if(($startrow-$limit)<0)
-                    {
-                        $prevstartrow = 0;
-                    }
-                    else
-                    {
-                        $prevstartrow = $startrow-$limit;
-                    }
-                    if($startrow>0){ ?>
-                        <button type="button" id="btn_prev" class="btn btn-primary" style="float: right;">Previous</button>
-                        <input type="hidden" id="prevstartrow" value="<?php echo $prevstartrow; ?>"></input>
-                        <input type="hidden" id="nextstartrow" value="<?php echo ($startrow+$limit); ?>"></input>
-                        
-                    <?php } ?> 
-                
-                <button type="button" id="btn_first" class="btn btn-primary right" style="float: right;">First</button>       
+                    </tbody>
+                   
+                  </table>
                 </div><!-- /.box-body -->
  
             </div><!-- /.col -->
@@ -572,13 +533,13 @@ function changeValue(){
         <div class="form-group">
           <label class="control-label col-lg-3" for="file">Interval</label>
           <div class="col-lg-9">
-            <select class="form-control select2" style="width: 100%;" name="status" id="filterx" onchange="changeValues();" required>
-                <option disabled selected value>--Please Select --</option>
-                <option id="six" value="six">6 Month(s)</option>
-                <option id="one" value="one">1 Year</option>
-                <option id="two" value="two">2 Year(s)</option>
-                <option id="three" value="three">3 Year(s)</option>
-            </select>
+                <select class="form-control select2" style="width: 100%;" name="status" id="filterx" onchange="changeValues();" required>
+	 <option disabled selected value>--Please Select --</option>
+<option id="six" value="six">6 Month(s)</option>
+<option id="one" value="one">1 Year</option>
+<option id="two" value="two">2 Year(s)</option>
+<option id="three" value="three">3 Year(s)</option>
+</select>
           </div>
         </div> 
         <!--script type="text/javascript">
@@ -621,9 +582,9 @@ function changeValues(){
            <select class="form-control select2" style="width: 100%;" name="dept" required>
                 <option disabled selected value>-- Please Select --</option>
 				<option id="QA" value="QA">QA</option>
-                <option id="Engineering" value="Engineering">Engineering</option>
-                <option id="TEST" value="TEST">TEST ENG</option>
-                <option id="Production" value="Production">Production</option>
+<option id="Engineering" value="Engineering">Engineering</option>
+<option id="TEST" value="TEST">TEST ENG</option>
+<option id="Production" value="Production">Production</option>
 
               </select>
           </div>
@@ -638,7 +599,7 @@ function changeValues(){
         <div class="form-group">
           <label class="control-label col-lg-3" for="creation_date">Creation Date</label>
           <div class="col-lg-9">
-            <input type="date" class="form-control" id="creation_date_new"  name="creation_date" value="<?php echo date('Y-m-d'); ?>"  placeholder="Creation Date"  required>  
+            <input type="date" class="form-control" id="creation_date"  name="creation_date" value=""  placeholder="Creation Date"  required>  
           </div>
         </div>
          <div class="form-group">
@@ -653,8 +614,8 @@ function changeValues(){
               <select class="form-control select2" style="width: 100%;" name="remark" required>
                 <option disabled selected value>-- Please Select --</option>
 				<option id="Active" value="Active">Active</option>
-                <option id="Inactive" value="Inactive">Inactive</option>
-                <option id="Closed" value="Repaired">Closed</option>
+<option id="Inactive" value="Inactive">Inactive</option>
+<option id="Closed" value="Repaired">Closed</option>
               </select>
           </div>
         </div> 
@@ -664,11 +625,11 @@ function changeValues(){
               <select class="form-control select2" style="width: 100%;" name="validation" required>
                 <option disabled selected value>-- Please Select --</option>
 				<option id="NoAccreditation" value="NoAccreditation">No Accreditation</option>
-                <option id="Accreditation" value="Accreditation">Accreditation</option>
-                <option id="PSNM" value="PSNM">PSNM Equipment</option>
-                <option id="OOS" value="OOS">Out of Service</option>
-                <option id="Consign" value="Consign">Consign</option>
-                <option id="Spoil" value="Spoil">Spoil</option>
+<option id="Accreditation" value="Accreditation">Accreditation</option>
+<option id="PSNM" value="PSNM">PSNM Equipment</option>
+<option id="OOS" value="OOS">Out of Service</option>
+<option id="Consign" value="Consign">Consign</option>
+<option id="Spoil" value="Spoil">Spoil</option>
 
               </select>
           </div>
@@ -702,101 +663,15 @@ function changeValues(){
     
     <script>
       $(function () {
-        // $("#example1").DataTable();
-        // $('#example2').DataTable({
-        //   "paging": true,
-        //   "lengthChange": false,
-        //   "searching": false,
-        //   "ordering": true,
-        //   "info": true,
-        //   "autoWidth": false
-        // });
-        checkboxChecker();
-        pagination_check();
-        
-        $("#btn_next").click(function () {
-            limit = Number($("#limit").val());
-            startrow = Number($("#startrow").val()) + limit;
-            window.location.href = ( "?startrow="+ startrow + "&limit=" + limit);
+        $("#example1").DataTable();
+        $('#example2').DataTable({
+          "paging": true,
+          "lengthChange": false,
+          "searching": false,
+          "ordering": true,
+          "info": true,
+          "autoWidth": false
         });
-
-        $("#btn_prev").click(function () {
-            limit = Number($("#limit").val());
-            startrow = Number($("#prevstartrow").val());
-            window.location.href = ("?startrow="+ startrow + "&limit=" + limit);
-        });
-
-        $("#btn_first").click(function () {
-            limit = Number($("#limit").val());
-            window.location.href = ("?startrow=0&limit=" + limit);
-        });
-
-        $("#btn_last").click(function () {
-            limit = Number($("#limit").val());
-            total_list = Number($("#total_list").val());
-            startrow = total_list - limit;
-            window.location.href = ("?startrow="+ startrow + "&limit=" + limit);
-        });
-
-        $('#limit_select').on('change',function(){
-            limit = Number($("#limit_select").val());
-            startrow = Number($("#startrow").val());
-            total_list = Number($("#total_list").val());
-            if((limit + startrow)<= total_list)
-            {
-                window.location.href = ( "?startrow="+ startrow + "&limit=" + limit);
-            }
-            else
-            {
-                window.location.href = ( "?startrow="+ (total_list - limit) + "&limit=" + limit);
-            }
-        });
-
-        $("#checkAll").click(function () {
-            $(".check").not(':disabled').prop('checked', $(this).prop('checked'));
-            checkboxChecker();
-        });
-        
-        $("#btn_delete").click(function () {
-            document.getElementById("delete_list").submit();
-        });
-
-        $(".check").click(function () {
-            checkboxChecker();
-        });
-
-        function pagination_check(){
-            limit = Number($("#limit").val());
-            startrow = Number($("#startrow").val());
-            total_list = Number($("#total_list").val());
-
-            if(startrow + (limit * 2 ) > total_list){
-                document.getElementById("btn_next").disabled = true;
-            }
-            else{
-                document.getElementById("btn_next").disabled = false;
-            }
-        }
-        function checkboxChecker(){
-            var valid = true, message = '';
-
-            $('.check').each(function() {
-
-                if ($(this).is(':checked') &&  $(this).is(':enabled')) {
-                    valid = false;
-                }
-            });
-
-            if(valid) {
-                if(document.getElementById("btn_delete") != null){
-                document.getElementById("btn_delete").disabled = true;
-                }
-            }else{
-                if(document.getElementById("btn_delete") != null){
-                document.getElementById("btn_delete").disabled = false;
-                }
-            }
-        }
       });
     </script>
   </body>

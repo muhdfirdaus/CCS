@@ -113,14 +113,14 @@ endif;
                         <td width=15%>  &nbsp; </td>
                         <td align=right>
                             <select id="search_by" class="form-control">
-                              <option value=10  >Equipment Name</option>
-                              <option value=10  >Model</option>
-                              <option value=10  >Manufacturer</option>
-                              <option value=10  >Location</option>
-                              <option value=10  >Cert. No</option>
-                              <option value=10  >Model</option>
-                              <option value=10  >PIC</option>
-                              <option value=10  >Status</option>
+                              <option value="equip_name"  >Equipment Name</option>
+                              <option value="equip_no"  >Equipment No.</option>
+                              <option value="model"  >Model</option>
+                              <option value="manufacturer"  >Manufacturer</option>
+                              <option value="location"  >Location</option>
+                              <option value="cert_no"  >Cert. No</option>
+                              <option value="dept"  >PIC</option>
+                              <option value="remark"  >Status</option>
                             </select>
                         </td>
                         <td><input type="text" id="search_val" class="form-control"></input></td>

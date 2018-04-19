@@ -1,5 +1,9 @@
 <?php
-$con = mysqli_connect("localhost","root","","inventory");
+$host = "localhost"; //server
+$uname = "root"; //username
+$pass = ""; //password
+$dbname = "inventory"; //db name
+$con = mysqli_connect($host,$uname,$pass,$dbname);
 
 // Check connection
 if (mysqli_connect_errno())

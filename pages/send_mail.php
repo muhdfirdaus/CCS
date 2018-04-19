@@ -11,17 +11,31 @@ use PHPMailer\PHPMailer\Exception;
 
 $query=mysqli_query($con,"select * from product  where branch_id='$branch' and due_date <= DATE_ADD(CURDATE(),INTERVAL 30 DAY) order by equip_id");
 
+$temporaryFolder = "tmp/";
+if (!file_exists($temporaryFolder)) {
+mkdir($temporaryFolder,0775,true);
+}
+$fp = fopen('tmp/overdue_tmp.csv', 'w+');
+
+$content = "";
 while($row=mysqli_fetch_field($query)){
-    echo($row->name);
-
+    if(strlen($content)>1)
+    { $content .= ", "; }
+    $content .= $row->name;
 }
-while($row=mysqli_fetch_array($query)){
-    for ($i = 0; $i < count($row); $i++) {
-        //inser to sql
+$data[0] = array($content);
+fputcsv($fp, $data[0]);
+$content = "";
+while($row=mysqli_fetch_array($query, MYSQLI_NUM)){
+    foreach($row as $key=>$val) {
+        if(strlen($content)>=1)
+        { $content .= ", "; }
+        $content .= $val;
     }
-
+    $doto= array($content);
+    fputcsv($fp, $doto);
 }
-
+// var_dump($data);
 /*
 
 //Load Composer's autoloader

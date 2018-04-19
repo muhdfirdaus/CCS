@@ -27,16 +27,14 @@ $data[0] = array($content);
 fputcsv($fp, $data[0]);
 $content = "";
 while($row=mysqli_fetch_array($query, MYSQLI_NUM)){
-    foreach($row as $key=>$val) {
-        if(strlen($content)>=1)
-        { $content .= ", "; }
-        $content .= $val;
+    $inside = "";
+    for($i=0; $i<count($row); $i++){
+        if($i>0)
+        { $inside .= ", "; }
+        $inside .= $row[$i];
     }
-    $doto= array($content);
-    fputcsv($fp, $doto);
+    fputcsv($fp, array($inside));
 }
-// var_dump($data);
-/*
 
 //Load Composer's autoloader
 require '../vendor/autoload.php';
@@ -44,7 +42,7 @@ $receiverEmail = "muhammadfirdauss@my.beyonics.com";
 $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
 try {
     //Server settings
-    $mail->SMTPDebug = 2;                                 // Enable verbose debug output
+    $mail->SMTPDebug = 0;                                 // Enable verbose debug output
     $mail->isSMTP();                                      // Set mailer to use SMTP
     $mail->Host = $mHost;  // Specify main and backup SMTP servers
     $mail->SMTPAuth = true;                               // Enable SMTP authentication
@@ -62,7 +60,7 @@ try {
     // $mail->addBCC('bcc@example.com');
 
     //Attachments
-    // $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+    $mail->addAttachment('tmp/overdue_tmp.csv');         // Add attachments
     // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
 
     //Content
@@ -72,12 +70,14 @@ try {
     $mail->AltBody = 'This is the list of overdue item for your attention as of '.date('d-m-Y');
 
     $mail->send();
-    echo 'Message has been sent';
+    echo'<script type="text/javascript">
+	alert("Message has been sent");
+	window.history.back();
+	</script>';
 } catch (Exception $e) {
     echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
 }
 
-*/
 
 
 

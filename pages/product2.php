@@ -115,11 +115,11 @@ endif;
                     <thead>
                       <tr>
                         <th class="info text-center"><input type="checkbox" id="checkAll" ></th>
-					    <th>ID</th>
+					              <th>ID</th>
                         <th>No.</th>
                         <th>Name</th>
                         <th>Model</th>
-						<th>Manufacturer</th>
+						            <th>Manufacturer</th>
                         <th>Lab.</th>
                         <th>Location</th>
                         <th>Cert. No.</th>
@@ -139,23 +139,23 @@ endif;
 		
         ?>
                       <tr>
-                        <td class="info text-center"><input type="checkbox" class="check" id="check_id" value="<?php echo $row['equip_id'];?>"></input></td>
+                        <td class="info text-center"><input type="checkbox" class="check" name="check_id[]"id="check_id" value="<?php echo $row['equip_id'];?>"></input></td>
 				      	<td><?php echo $row['equip_id'];?></td>
                         <td><?php echo $row['equip_no'];?></td>
                         <td><?php echo $row['equip_name'];?></td>
                         <td><?php echo $row['model'];?></td>						
-						<td><?php echo $row['manufacturer'];?></td>
+                        <td><?php echo $row['manufacturer'];?></td>
                         <td><?php echo $row['category'];?></td>
-						<td><?php echo $row['location'];?></td>
-						<td><?php echo $row['cert_no'];?></td>
-            			<td><?php echo $row['creation_date'];?></td>
-            			<td><?php echo $row['due_date'];?></td>
-						<td><?php echo $row['dept'];?></td>
-						<td><?php echo $row['remark'];?></td>						
+                        <td><?php echo $row['location'];?></td>
+                        <td><?php echo $row['cert_no'];?></td>
+                        <td><?php echo $row['creation_date'];?></td>
+                        <td><?php echo $row['due_date'];?></td>
+                        <td><?php echo $row['dept'];?></td>
+                        <td><?php echo $row['remark'];?></td>						
                         <td>
-				            <a href="#updateordinance<?php echo $row['equip_id'];?>" data-target="#updateordinance<?php echo $row['equip_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-edit text-blue"></i></a>
-			            </td>
-                      </tr>
+				                  <a href="#updateordinance<?php echo $row['equip_id'];?>" data-target="#updateordinance<?php echo $row['equip_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-edit text-blue"></i></a>
+			                  </td>
+                      </tr></form> 
 <div id="updateordinance<?php echo $row['equip_id'];?>" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
 	
  <div class="modal-dialog">
@@ -456,15 +456,15 @@ function changeValue(){
  <!--end of modal--> 
 <?php }?>					  
                         </tbody>
-                    </form> 
+                    
                     </table>
 
                     <input type="hidden" id="total_list" value="<?php echo $total_list; ?>"></input>
                     <input type="hidden" id="startrow" value="<?php echo $startrow; ?>"></input>
                     <input type="hidden" id="limit" value="<?php echo $limit; ?>"></input>
-                    <button type="submit" id="btn_delete" class="btn btn-primary" name="btn_delete">Delete selected</button>
-                    <button type="submit" id="btn_last" class="btn btn-primary right" style="float: right;">Last</button>
-                    <button type="submit" id="btn_next" class="btn btn-primary right" style="float: right;">Next</button>
+                    <button type="button" id="btn_delete" class="btn btn-primary" name="btn_delete">Delete selected</button>
+                    <button type="button" id="btn_last" class="btn btn-primary right" style="float: right;">Last</button>
+                    <button type="button" id="btn_next" class="btn btn-primary right" style="float: right;">Next</button>
                     
                     <?php
                     //setting up value and variable for js purposes

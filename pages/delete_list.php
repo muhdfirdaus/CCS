@@ -3,25 +3,41 @@ session_start();
 include('../dist/includes/dbcon.php');
 
 if(isset($_POST['check_id'])){
-    echo "woi";
+    $list_id = "";
+    for($i=0; $i < count($_POST['check_id']); $i++)
+    {
+        if($i>0)
+        {
+            $list_id .= ", ";
+        }
+        $list_id .= $_POST['check_id'][$i];
+    }
 }
 else{
-    echo"tak jadi";
+    echo'<script type="text/javascript">
+	alert("No item is selected");
+	window.history.back();
+	</script>';
 }
 
-    // $dude = $_POST['check_id'];
-// var_dump($dude);
 
-/*
+
 // sql to delete a record
-$sql = "DELETE FROM MyGuests WHERE id=3";
+$sql = "DELETE FROM product WHERE equip_id in ($list_id)";
 
-if ($conn->query($sql) === TRUE) {
-    echo "Record deleted successfully";
+if ($con->query($sql) === TRUE) {
+    echo'<script type="text/javascript">
+	alert("Record deleted successfully");
+	window.history.back();
+	</script>';
 } else {
-    echo "Error deleting record: " . $conn->error;
+    echo'<script type="text/javascript">
+	alert("Error deleting record");
+	window.history.back();
+    </script>';
+    // echo 'error is :'.$con->error;
 }
 
-$conn->close();
-*/
+$con->close();
+
 ?>

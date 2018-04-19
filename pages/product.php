@@ -76,8 +76,18 @@ endif;
         //Try to get limit and start row from URL and assign default value
         isset($_GET['startrow'])? $startrow = $_GET['startrow'] : $startrow = 0;
         isset($_GET['limit'])? $limit = $_GET['limit'] : $limit = 10;
+        isset($_GET['search_by'])? $search_by = $_GET['search_by'] : $search_by = null;
+        isset($_GET['search_val'])? $search_val = $_GET['search_val'] : $search_val = null;
 
-        $sql = mysqli_query($con,"select count(*) from product where branch_id='$branch'  order by equip_id ")or die(mysqli_error());
+        if($search_by != null && $search_val != null)
+        {
+          $sql = mysqli_query($con,"select count(*) from product where branch_id='$branch' and $search_by like '%$search_val%'  order by equip_id ")or die(mysqli_error());
+        }
+        else
+        {
+          $sql = mysqli_query($con,"select count(*) from product where branch_id='$branch'  order by equip_id ")or die(mysqli_error());
+        }
+        
         $result = mysqli_fetch_array($sql);
         $total_list = $result[0];
 
@@ -112,7 +122,7 @@ endif;
                         <td width=15%>  &nbsp; </td>
                         <td width=15%>  &nbsp; </td>
                         <td align=right>
-                            <select id="search_by" class="form-control">
+                            <select id="search_by_inp" class="form-control">
                               <option value="equip_name"  >Equipment Name</option>
                               <option value="equip_no"  >Equipment No.</option>
                               <option value="model"  >Model</option>
@@ -123,7 +133,7 @@ endif;
                               <option value="remark"  >Status</option>
                             </select>
                         </td>
-                        <td><input type="text" id="search_val" class="form-control"></input></td>
+                        <td><input type="text" id="search_val_inp" class="form-control"></input></td>
                         <td><button type="button" id="btn_search" class="btn btn-primary" >Search</button>
                         </td>
                     </tr>
@@ -151,8 +161,14 @@ endif;
                     </thead>
                     <tbody>
         <?php
-		
-            $query=mysqli_query($con,"select * from product where branch_id='$branch'  order by equip_id limit $startrow,$limit ")or die(mysqli_error());
+            if($search_by != null && $search_val != null)
+            {
+              $query = mysqli_query($con,"select * from product where branch_id='$branch' AND $search_by LIKE '%$search_val%'  order by equip_id limit $startrow,$limit")or die(mysqli_error());
+            }
+            else
+            {
+              $query=mysqli_query($con,"select * from product where branch_id='$branch'  order by equip_id limit $startrow,$limit ")or die(mysqli_error());
+            }
             while($row=mysqli_fetch_array($query)){
 		
         ?>
@@ -480,6 +496,8 @@ function changeValue(){
                     <input type="hidden" id="total_list" value="<?php echo $total_list; ?>"></input>
                     <input type="hidden" id="startrow" value="<?php echo $startrow; ?>"></input>
                     <input type="hidden" id="limit" value="<?php echo $limit; ?>"></input>
+                    <input type="hidden" id="search_by" value="<?php echo $search_by; ?>"></input>
+                    <input type="hidden" id="search_val" value="<?php echo $search_val; ?>"></input>
                     <button type="button" id="btn_delete" class="btn btn-primary" name="btn_delete">Delete selected</button>
                     <button type="button" id="btn_last" class="btn btn-primary right" style="float: right;">Last</button>
                     <button type="button" id="btn_next" class="btn btn-primary right" style="float: right;">Next</button>
@@ -735,39 +753,96 @@ function changeValues(){
         $("#btn_next").click(function () {
             limit = Number($("#limit").val());
             startrow = Number($("#startrow").val()) + limit;
-            window.location.href = ( "?startrow="+ startrow + "&limit=" + limit);
+            searchBy = $("#limit").val();
+            searchVal = $("#limit").val();
+            if(searchVal.trim() != "" && searchBy.trim() != "")
+            {
+              endext = "&search_by=" + searchBy + "&search_val=" + searchVal;
+            }
+            else
+            {
+              endext = "";
+            }
+            window.location.href = ( "?startrow="+ startrow + "&limit=" + limit + endext);
         });
 
         $("#btn_prev").click(function () {
             limit = Number($("#limit").val());
             startrow = Number($("#prevstartrow").val());
-            window.location.href = ("?startrow="+ startrow + "&limit=" + limit);
+            searchBy = $("#limit").val();
+            searchVal = $("#limit").val();
+            if(searchVal.trim() != "" && searchBy.trim() != "")
+            {
+              endext = "&search_by=" + searchBy + "&search_val=" + searchVal;
+            }
+            else
+            {
+              endext = "";
+            }
+            window.location.href = ("?startrow="+ startrow + "&limit=" + limit +endext);
         });
 
         $("#btn_first").click(function () {
             limit = Number($("#limit").val());
-            window.location.href = ("?startrow=0&limit=" + limit);
+            searchBy = $("#search_by").val();
+            searchVal = $("#search_val").val();
+            if(searchVal.trim() != "" && searchBy.trim() != "")
+            {
+              endext = "&search_by=" + searchBy + "&search_val=" + searchVal;
+            }
+            else
+            {
+              endext = "";
+            }
+            window.location.href = ("?startrow=0&limit=" + limit + endext);
         });
 
         $("#btn_last").click(function () {
             limit = Number($("#limit").val());
             total_list = Number($("#total_list").val());
-            startrow = total_list - limit;
-            window.location.href = ("?startrow="+ startrow + "&limit=" + limit);
+            if(total_list-limit >= 0)
+            {
+              startrow = total_list - limit;
+            }
+            else
+            {
+              startrow = 0;
+            }
+            searchBy = $("#search_by").val();
+            searchVal = $("#search_val").val();
+            if(searchVal.trim() != "" && searchBy.trim() != "")
+            {
+              endext = "&search_by=" + searchBy + "&search_val=" + searchVal;
+            }
+            else
+            {
+              endext = "";
+            }
+            window.location.href = ("?startrow="+ startrow + "&limit=" + limit + endext);
         });
 
         $('#limit_select').on('change',function(){
             limit = Number($("#limit_select").val());
             startrow = Number($("#startrow").val());
             total_list = Number($("#total_list").val());
-            if((limit + startrow)<= total_list)
+            searchBy = $("#search_by").val();
+            searchVal = $("#search_val").val();
+            if(searchVal.trim() != "" && searchBy.trim() != "")
             {
-                window.location.href = ( "?startrow="+ startrow + "&limit=" + limit);
+              endext = "&search_by=" + searchBy + "&search_val=" + searchVal;
             }
             else
             {
-                window.location.href = ( "?startrow="+ (total_list - limit) + "&limit=" + limit);
+              endext = "";
             }
+            // if((limit + startrow)< total_list)
+            // {
+                window.location.href = ( "?startrow="+ startrow + "&limit=" + limit + endext);
+            // }
+            // else
+            // {
+            //     window.location.href = ( "?startrow="+ (total_list - limit) + "&limit=" + limit + endext);
+            // }
         });
 
         $("#checkAll").click(function () {
@@ -780,14 +855,25 @@ function changeValues(){
         });
 
         $("#btn_search").click(function () {
-            searchBy = $("#search_by").val();
-            searchVal = $("#search_val").val();
+            searchBy = $("#search_by_inp").val();
+            searchVal = $("#search_val_inp").val();
             if(searchVal.trim() == "")
             {
               alert("Please insert value in the search box.");
             }
             else
-            alert("Search by->" + searchBy + " // Search value->" + searchVal);
+            {
+              limit = Number($("#limit").val());
+              if(searchVal.trim() != "" && searchBy.trim() != "")
+              {
+                endext = "&search_by=" + searchBy + "&search_val=" + searchVal;
+              }
+              else
+              {
+                endext = "";
+              }
+              window.location.href = ("?startrow=0&limit=" + limit +endext);
+            }
         });
 
         $(".check").click(function () {

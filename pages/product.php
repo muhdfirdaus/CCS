@@ -96,10 +96,10 @@ endif;
                   <h3 class="box-title">Calibration List</h3>
                 </div><!-- /.box-header -->
                 <div style="width:100%" class="box-body">
-                <table>
+                <table width='100%' border=0>
                     <tr>
-                        <td>Show</td>
-                        <td>
+                        <td width=5% align=right>Show</td>
+                        <td td width=5%>
                             <select id="limit_select">
                                 <option value=10 <?php if($limit==10){echo "selected";} ?> >10</option>
                                 <option value=25 <?php if($limit==25){echo "selected";} ?> >25</option>
@@ -107,9 +107,27 @@ endif;
                                 <option value=100 <?php if($limit==100){echo "selected";}?>>100</option>
                             </select>
                         </td>
-                        <td>entries</td>
+                        <td width=5%>entries</td>
+                        <td width=15%>  &nbsp; </td>
+                        <td width=15%>  &nbsp; </td>
+                        <td width=15%>  &nbsp; </td>
+                        <td align=right>
+                            <select id="search_by" class="form-control">
+                              <option value=10  >Equipment Name</option>
+                              <option value=10  >Model</option>
+                              <option value=10  >Manufacturer</option>
+                              <option value=10  >Location</option>
+                              <option value=10  >Cert. No</option>
+                              <option value=10  >Model</option>
+                              <option value=10  >PIC</option>
+                              <option value=10  >Status</option>
+                            </select>
+                        </td>
+                        <td><input type="text" id="search_val" class="form-control"></input></td>
+                        <td><button type="button" id="btn_search" class="btn btn-primary" >Search</button>
+                        </td>
                     </tr>
-                </table>
+                </table><br>
                 <form id="delete_list" method="post" name="delete_list" action="delete_list.php" enctype='multipart/form-data'>
                 <table style="font-size:10px" id="example1" class="table table-bordered table-striped">
                     <thead>

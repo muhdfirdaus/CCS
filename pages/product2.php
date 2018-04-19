@@ -638,7 +638,7 @@ function changeValues(){
         <div class="form-group">
           <label class="control-label col-lg-3" for="creation_date">Creation Date</label>
           <div class="col-lg-9">
-            <input type="date" class="form-control" id="creation_date"  name="creation_date" value=""  placeholder="Creation Date"  required>  
+            <input type="date" class="form-control" id="creation_date_new"  name="creation_date" value="<?php echo date('Y-m-d'); ?>"  placeholder="Creation Date"  required>  
           </div>
         </div>
          <div class="form-group">

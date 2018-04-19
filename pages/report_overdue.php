@@ -63,9 +63,10 @@ endif;
           <!-- Content Header (Page header) -->
           <section class="content-header">
             <h1>
-             <a class = "btn btn-primary btn-print" href = "home.php"><i class ="glyphicon glyphicon-arrow-left"></i> Back to Homepage</a>   
-               <a class = "btn btn-success btn-print" href = "" onclick="PrintDoc()"><i class ="glyphicon glyphicon-print"></i> Print</a>
-			    <a class = "btn btn-primary btn-print" href = "export.php"><i class ="glyphicon glyphicon-export"></i>Export to Excel</a>  
+              <a class = "btn btn-primary btn-print" href = "home.php"><i class ="glyphicon glyphicon-arrow-left"></i> Back to Homepage</a>   
+              <a class = "btn btn-success btn-print" href = "" onclick="PrintDoc()"><i class ="glyphicon glyphicon-print"></i> Print</a>
+              <a class = "btn btn-primary btn-print" href = "export.php"><i class ="glyphicon glyphicon-export"></i>Export to Excel</a>  
+              <a class = "btn btn-primary btn-print" href = "send_mail.php"><i class ="glyphicon glyphicon-envelope"></i>Send as Email</a>
             </h1>
             <ol class="breadcrumb">
               <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -88,26 +89,20 @@ endif;
                   <table style="font-size:11px" id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                    
                         <th>No.</th>
                         <th>Name</th>
                         <th>Model</th>
-						
-						<th>Manufacturer</th>
-                        
-            						<th>Lab.</th>
-									<th>Location</th>
-									
-									<th>Cert. No.</th>
-            						<th>Creation Date</th>
-									<th>Due Date</th>
-									<th>PIC</th>
-									<th>Remark</th>
-								<th></th>
-								
-                      </tr>
+								      	<th>Manufacturer</th>
+                        <th>Lab.</th>
+                        <th>Location</th>
+                        <th>Cert. No.</th>
+                        <th>Creation Date</th>
+                        <th>Due Date</th>
+                        <th>PIC</th>
+                        <th>Remark</th>
+								      </tr>
                     </thead>
-                    <tbody>
+                  <tbody>
 <?php
 		
 		$query=mysqli_query($con,"select * from product  where branch_id='$branch' and due_date <= DATE_ADD(CURDATE(),INTERVAL 30 DAY) order by equip_id")or die(mysqli_error());
@@ -115,25 +110,20 @@ endif;
 		
 ?>
                       <tr>
-                      	
-                        <td><?php echo $row['equip_no'];?></td>
+                      	<td><?php echo $row['equip_no'];?></td>
                         <td><?php echo $row['equip_name'];?></td>
                         <td><?php echo $row['model'];?></td>
-						
-						<td><?php echo $row['manufacturer'];?></td>
+						            <td><?php echo $row['manufacturer'];?></td>
                         <td><?php echo $row['category'];?></td>
-						<td><?php echo $row['location'];?></td>
-						<td><?php echo $row['cert_no'];?></td>
-            			<td><?php echo $row['creation_date'];?></td>
-            			<td><?php echo $row['due_date'];?></td>
-						<td><?php echo $row['dept'];?></td>
-						<td><?php echo $row['remark'];?></td>
-						
-						
-                        <td>
-				<a href="#updateordinance<?php echo $row['equip_id'];?>" data-target="#updateordinance<?php echo $row['equip_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-edit text-blue"></i></a>
-			
-						</td>
+                        <td><?php echo $row['location'];?></td>
+                        <td><?php echo $row['cert_no'];?></td>
+                        <td><?php echo $row['creation_date'];?></td>
+                        <td><?php echo $row['due_date'];?></td>
+                        <td><?php echo $row['dept'];?></td>
+                        <td><?php echo $row['remark'];?></td>
+						            <!-- <td>
+                          <a href="#updateordinance<?php echo $row['equip_id'];?>" data-target="#updateordinance<?php echo $row['equip_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-edit text-blue"></i></a>
+                        </td> -->
                       </tr>
 <div id="updateordinance<?php echo $row['equip_id'];?>" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
 	

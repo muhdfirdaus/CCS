@@ -66,13 +66,19 @@ endif;
                       <input type="text" class="form-control pull-right" value="<?php echo $row['name'];?>" name="name" placeholder="Full Name" required>
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
-				  <div class="form-group">
+                  <div class="form-group">
+                    <label for="date">Email</label>
+                    <div class="input-group col-md-12">
+                      <input type="text" class="form-control pull-right" value="<?php if($_SESSION['email'] != null){echo $_SESSION['email'];} else echo"";?>" name="email" required>
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->
+				          <div class="form-group">
                     <label for="date">Username</label>
                     <div class="input-group col-md-12">
                       <input type="text" class="form-control pull-right" value="<?php echo $row['username'];?>" readonly="readonly" name="username" placeholder="Username" required>
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
-				  <div class="form-group">
+				          <div class="form-group">
                     <label for="date">Change Password</label>
                     <div class="input-group col-md-12">
                       <input type="password" class="form-control pull-right" id="password" name="password" placeholder="Type new password">

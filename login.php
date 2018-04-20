@@ -300,6 +300,7 @@ $query=mysqli_query($con,"select * from user natural join branch where username=
            $id=$row['user_id'];
            $_SESSION['branch']=$row['branch_id'];
            $_SESSION['skin']=$row['skin'];
+           $_SESSION['email']=$row['email'];
 
   	if ($counter == 0) 
 	  {	
@@ -309,7 +310,7 @@ $query=mysqli_query($con,"select * from user natural join branch where username=
 	  elseif ($counter > 0)
 	  {
 	  $_SESSION['id']=$id;	
-	  $_SESSION['name']=$name;		
+	  $_SESSION['name']=$name;	
 	  
 
 		$remarks="has logged in the system at ";  

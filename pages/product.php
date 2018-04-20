@@ -753,8 +753,8 @@ function changeValues(){
         $("#btn_next").click(function () {
             limit = Number($("#limit").val());
             startrow = Number($("#startrow").val()) + limit;
-            searchBy = $("#limit").val();
-            searchVal = $("#limit").val();
+            searchBy = $("#search_by").val();
+            searchVal = $("#search_val").val();
             if(searchVal.trim() != "" && searchBy.trim() != "")
             {
               endext = "&search_by=" + searchBy + "&search_val=" + searchVal;
@@ -769,8 +769,8 @@ function changeValues(){
         $("#btn_prev").click(function () {
             limit = Number($("#limit").val());
             startrow = Number($("#prevstartrow").val());
-            searchBy = $("#limit").val();
-            searchVal = $("#limit").val();
+            searchBy = $("#search_by").val();
+            searchVal = $("#search_val").val();
             if(searchVal.trim() != "" && searchBy.trim() != "")
             {
               endext = "&search_by=" + searchBy + "&search_val=" + searchVal;
@@ -885,7 +885,7 @@ function changeValues(){
             startrow = Number($("#startrow").val());
             total_list = Number($("#total_list").val());
 
-            if(startrow + (limit * 2 ) > total_list){
+            if(startrow + (limit * 2 ) - 1 > total_list){
                 document.getElementById("btn_next").disabled = true;
             }
             else{

@@ -10,6 +10,12 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 
+if($email == null || $email == ""){
+    echo'<script type="text/javascript">
+	alert("Please update your email first.");
+	</script>';
+}
+
 $query=mysqli_query($con,"select * from product  where branch_id='$branch' and due_date <= DATE_ADD(CURDATE(),INTERVAL 30 DAY) order by equip_id");
 
 $temporaryFolder = "tmp/";

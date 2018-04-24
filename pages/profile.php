@@ -58,7 +58,7 @@ endif;
                 </div>
                 <div class="box-body">
                   <!-- Date range -->
-                  <form id = "formE"method="post" action="profile_update.php" onsubmit="return myFunction()">
+                  <form id = "formE" method="post" action="profile_update.php">
   
                   <div class="form-group">
                     <label for="date">Full Name</label>
@@ -69,7 +69,7 @@ endif;
                   <div class="form-group">
                     <label for="date">Email</label>
                     <div class="input-group col-md-12">
-                      <input type="text" class="form-control pull-right" value="<?php if($_SESSION['email'] != null){echo $_SESSION['email'];} else echo"";?>" name="email" required>
+                      <input type="text" class="form-control pull-right" value="<?php if($row['email'] != null){echo $row['email'];} else echo"";?>" name="email" id="email" required>
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
 				          <div class="form-group">
@@ -101,7 +101,7 @@ endif;
 				  
                   <div class="form-group">
                     <div class="input-group">
-                      <input class = "btn btn-primary" type="submit" value="Submit">
+                      <input class = "btn btn-primary" type="submit" value="Submit" id="btn_submit">
 					  <button class="btn" id="daterange-btn">
                         Clear
                       </button>
@@ -150,23 +150,43 @@ endif;
           "autoWidth": false
         });
       });
-    </script>
-	<script>
-function myFunction() {
-    var pass1 = document.getElementById("password").value;
-    var pass2 = document.getElementById("cfmPassword").value;
-    var ok = true;
-    if (pass1 != pass2) {
-        alert("Passwords Do not match");
-        document.getElementById("password").style.borderColor = "#E34234";
-        document.getElementById("cfmPassword").style.borderColor = "#E34234";
-        ok = false;
-    }
-    else {
-        alert("Passwords Match!!!");
-    }
-    return ok;
-}
+
+      $("#btn_submit").click(function () {
+          tot = 1;
+
+          if(myFunction()){
+            tot += 1;
+          }
+
+          if(tot>1){
+            document.getElementById("formE").submit();
+          }
+      });
+
+      function myFunction() {
+        var pass1 = document.getElementById("password").value;
+        var pass2 = document.getElementById("cfmPassword").value;
+        var email = document.getElementById("email").value;
+        var ok = true;
+        
+        if(validateEmail(email) != true){
+          alert("Please enter valid email value!");
+          ok = false;
+        }
+        if ((pass1 != null || pass2 !=null ) && pass1 != pass2) {
+            alert("Passwords Do not match");
+            document.getElementById("password").style.borderColor = "#E34234";
+            document.getElementById("cfmPassword").style.borderColor = "#E34234";
+            ok = false;
+        }
+        return ok;
+      }
+
+      function validateEmail(email) {
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+      }
+
 	</script>
   </body>
 </html>

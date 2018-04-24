@@ -7,6 +7,7 @@ include('../dist/includes/dbcon.php');
 
 	$id = $_SESSION['id'];
 	$name =$_POST['name'];
+	$email =$_POST['email'];
 	$username =$_POST['username'];
 	$password =$_POST['password'];
 	$old =$_POST['passwordold'];
@@ -28,11 +29,11 @@ include('../dist/includes/dbcon.php');
 				{
 					if ($password<>"")
 					{
-						mysqli_query($con,"update user set name='$name',username='$username',password='$passnew' where user_id='$id'")or die(mysqli_error($con));
+						mysqli_query($con,"update user set name='$name',email='$email',username='$username',password='$passnew' where user_id='$id'")or die(mysqli_error($con));
 					}
 					else
 					{
-						mysqli_query($con,"update user set name='$name',username='$username' where user_id='$id'")or die(mysqli_error($con));
+						mysqli_query($con,"update user set name='$name',email='$email',username='$username' where user_id='$id'")or die(mysqli_error($con));
 					}
 					
 					$_SESSION['name']=$name;

@@ -94,14 +94,14 @@ endif;
 					<div class="form-group">
                     <label for="date">Enter Old Password to confirm changes</label>
                     <div class="input-group col-md-12">
-                      <input type="password" class="form-control pull-right" id="date" name="passwordold" placeholder="Type old password" required>
+                      <input type="password" class="form-control pull-right" id="pass_old" name="passwordold" placeholder="Type old password" required>
                     </div><!-- /.input group -->
 					
                   </div><!-- /.form group -->
 				  
                   <div class="form-group">
                     <div class="input-group">
-                      <input class = "btn btn-primary" type="submit" value="Submit" id="btn_submit">
+                      <input class = "btn btn-primary" type="button" value="Submit" id="btn_submit">
 					  <button class="btn" id="daterange-btn">
                         Clear
                       </button>
@@ -150,14 +150,28 @@ endif;
           "autoWidth": false
         });
       });
+      // ('#formE').on('keyup keypress', function(e) {
+      //   var keyCode = e.keyCode || e.which;
+      //   if (keyCode === 13) { 
+      //     e.preventDefault();
+      //     return false;
+      //   }
+      // });
+      $("#formE").keypress(function(e) {
+        //Enter key
+        if (e.which == 13) {
+          return false;
+        }
+      });
 
       $("#btn_submit").click(function () {
           tot = 1;
+          ok = myFunction();
 
-          if(myFunction()){
+          if(ok == true){
             tot += 1;
           }
-
+          //  alert("tot is : " + tot); 
           if(tot>1){
             document.getElementById("formE").submit();
           }
@@ -167,19 +181,25 @@ endif;
         var pass1 = document.getElementById("password").value;
         var pass2 = document.getElementById("cfmPassword").value;
         var email = document.getElementById("email").value;
+        var pass_old = document.getElementById("pass_old").value;
         var ok = true;
         
+        if(pass_old.trim() == ""){
+          alert("Please enter your current password");
+          ok = false;
+        }
         if(validateEmail(email) != true){
           alert("Please enter valid email value!");
           ok = false;
         }
-        if ((pass1 != null || pass2 !=null ) && pass1 != pass2) {
+        if ((pass1 != null || pass2 != null ) && pass1 != pass2) {
             alert("Passwords Do not match");
             document.getElementById("password").style.borderColor = "#E34234";
             document.getElementById("cfmPassword").style.borderColor = "#E34234";
             ok = false;
         }
         return ok;
+
       }
 
       function validateEmail(email) {

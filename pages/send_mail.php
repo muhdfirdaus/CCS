@@ -3,6 +3,7 @@ session_start();
 include('../dist/includes/mail_config.php');
 include('../dist/includes/dbcon.php');
 $branch = $_SESSION['branch'];
+$email = $_SESSION['email'];
 // Import PHPMailer classes into the global namespace
 // These must be at the top of your script, not inside a function
 use PHPMailer\PHPMailer\PHPMailer;
@@ -38,7 +39,7 @@ while($row=mysqli_fetch_array($query, MYSQLI_NUM)){
 
 //Load Composer's autoloader
 require '../vendor/autoload.php';
-$receiverEmail = "muhammadfirdauss@my.beyonics.com";
+$receiverEmail = $email;
 $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
 try {
     //Server settings

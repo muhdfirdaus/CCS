@@ -56,7 +56,14 @@ try {
     $mail->Username = $mUname;                 // SMTP username
     $mail->Password = $mPass;                           // SMTP password
     $mail->SMTPSecure = $mSMTP;                            // Enable TLS encryption, `ssl` also accepted
-    $mail->Port = $mPort;                                    // TCP port to connect to
+    $mail->Port = $mPort;         
+    $mail->SMTPOptions = array(
+		'ssl' => array(
+			'verify_peer' => false,
+			'verify_peer_name' => false,
+			'allow_self_signed' => true
+		)
+	);                           // TCP port to connect to
 
     //Recipients
     $mail->setFrom($mUname, 'CCMS-Mail');

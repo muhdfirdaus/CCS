@@ -1,2 +1,3 @@
 #list any file or folder that will be ignored here
 db_changes.txt
+test_chart*

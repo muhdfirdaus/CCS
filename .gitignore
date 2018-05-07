@@ -1,3 +1,6 @@
 #list any file or folder that will be ignored here
 db_changes.txt
 test_chart*
+overdue_tmp.csv
+/.gitignore
+/pages/tmp/overdue_tmp.csv

@@ -19,12 +19,12 @@ include('../dist/includes/dbcon.php');
 	$remark=$_POST['remark'];
 	$validation=$_POST['validation'];
 	
-	$query2=mysqli_query($con,"select * from product where equip_name='$equip_name' and branch_id='$branch'")or die(mysqli_error($con));
+	$query2=mysqli_query($con,"select * from product where equip_no='$equip_no' and branch_id='$branch'")or die(mysqli_error($con));
 		$count=mysqli_num_rows($query2);
 
 		if ($count>0)
 		{
-			echo "<script type='text/javascript'>alert('Equipment already exist!');</script>";
+			echo "<script type='text/javascript'>alert('Equipment with that Serial Number already exist!');</script>";
 			echo "<script>document.location='product.php'</script>";  
 		}
 		else

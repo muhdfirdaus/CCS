@@ -546,7 +546,7 @@ function changeValue(){
               <div style="font-size:12px" class="modal-body">
         <form class="form-horizontal" method="post" action="product_add.php" enctype='multipart/form-data'>
         <div class="form-group">
-          <label class="control-label col-lg-3" for="equip_no">Equipment No.</label>
+          <label class="control-label col-lg-3" for="equip_no">Serial No.</label>
           <div class="col-lg-9">
             <input type="text" class="form-control" id="equip_no" name="equip_no" placeholder="Equipment No." required>  
           </div>

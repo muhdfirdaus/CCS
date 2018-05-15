@@ -81,11 +81,11 @@ endif;
 
         if($search_by != null && $search_val != null)
         {
-          $sql = mysqli_query($con,"select count(*) from product where branch_id='$branch' and $search_by like '%$search_val%'  order by equip_id ")or die(mysqli_error());
+          $sql = mysqli_query($con,"select count(*) from product where branch_id='$branch' and $search_by like '%$search_val%'  order by creation_date ")or die(mysqli_error());
         }
         else
         {
-          $sql = mysqli_query($con,"select count(*) from product where branch_id='$branch'  order by equip_id ")or die(mysqli_error());
+          $sql = mysqli_query($con,"select count(*) from product where branch_id='$branch'  order by creation_date ")or die(mysqli_error());
         }
         
         $result = mysqli_fetch_array($sql);
@@ -143,8 +143,8 @@ endif;
                     <thead>
                       <tr>
                         <th class="info text-center"><input type="checkbox" id="checkAll" ></th>
-					              <th>ID</th>
-                        <th>No.</th>
+					              <th>No.</th>
+                        <th>Serial Number</th>
                         <th>Name</th>
                         <th>Model</th>
 						            <th>Manufacturer</th>
@@ -163,18 +163,19 @@ endif;
         <?php
             if($search_by != null && $search_val != null)
             {
-              $query = mysqli_query($con,"select * from product where branch_id='$branch' AND $search_by LIKE '%$search_val%'  order by equip_id limit $startrow,$limit")or die(mysqli_error());
+              $query = mysqli_query($con,"select * from product where branch_id='$branch' AND $search_by LIKE '%$search_val%'  order by creation_date limit $startrow,$limit")or die(mysqli_error());
             }
             else
             {
-              $query=mysqli_query($con,"select * from product where branch_id='$branch'  order by equip_id limit $startrow,$limit ")or die(mysqli_error());
+              $query=mysqli_query($con,"select * from product where branch_id='$branch'  order by creation_date limit $startrow,$limit ")or die(mysqli_error());
             }
+            $ct = $startrow;
             while($row=mysqli_fetch_array($query)){
 		
         ?>
                       <tr>
                         <td class="info text-center"><input type="checkbox" class="check" name="check_id[]"id="check_id" value="<?php echo $row['equip_id'];?>"></input></td>
-				      	<td><?php echo $row['equip_id'];?></td>
+				      	        <td><?php echo $ct + 1; $ct++;?></td>
                         <td><?php echo $row['equip_no'];?></td>
                         <td><?php echo $row['equip_name'];?></td>
                         <td><?php echo $row['model'];?></td>						
@@ -488,7 +489,7 @@ function changeValue(){
         </div><!--end of modal-dialog-->
  </div>
  <!--end of modal--> 
-<?php }?>					  
+<?php } ?>					  
                         </tbody>
                     
                     </table>

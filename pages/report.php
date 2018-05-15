@@ -89,34 +89,29 @@ endif;
                   <table style="font-size:11px" id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                    <th>ID</th>
-                        <th>No.</th>
+                        <th>No</th>
+                        <th>Serial Number</th>
                         <th>Name</th>
                         <th>Model</th>
-						
-						<th>Manufacturer</th>
-                        
-            						<th>Lab.</th>
-									<th>Location</th>
-									
-									<th>Cert. No.</th>
-            						<th>Creation Date</th>
-									<th>Due Date</th>
-									<th>PIC</th>
-									<th>Remark</th>
-								
-								
+                        <th>Manufacturer</th>
+                        <th>Lab.</th>
+                        <th>Location</th>
+                        <th>Cert. No.</th>
+                        <th>Creation Date</th>
+                        <th>Due Date</th>
+                        <th>PIC</th>
+                        <th>Remark</th>
                       </tr>
                     </thead>
                     <tbody>
 <?php
 		
-		$query=mysqli_query($con,"select * from product  where branch_id='$branch' order by equip_id desc")or die(mysqli_error());
+		$query=mysqli_query($con,"select * from product  where branch_id='$branch' order by creation_date ")or die(mysqli_error());
 		while($row=mysqli_fetch_array($query)){
 		
 ?>
                       <tr>
-                      	 <td><?php echo $row['equip_id'];?></td>
+                        <td></td>
                         <td><?php echo $row['equip_no'];?></td>
                         <td><?php echo $row['equip_name'];?></td>
                         <td><?php echo $row['model'];?></td>
@@ -174,15 +169,20 @@ endif;
     
     <script>
       $(function () {
-        $("#example1").DataTable();
-        $('#example2').DataTable({
-          "paging": true,
-          "lengthChange": false,
-          "searching": false,
-          "ordering": true,
-          "info": true,
-          "autoWidth": false
-        });
+        var t = $('#example1').DataTable( {
+          "columnDefs": [ {
+              "searchable": false,
+              "orderable": false,
+              "targets": 0
+          } ],
+          "order": [[ 1, 'asc' ]]
+        } );
+  
+        t.on( 'order.dt search.dt', function () {
+            t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+                cell.innerHTML = i+1;
+            } );
+        } ).draw();
       });
     </script>
   </body>

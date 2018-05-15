@@ -88,8 +88,8 @@ endif;
                   <table style="font-size:11px" id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                    
-                        <th>No.</th>
+                        <th>No</th>
+                        <th>Serial Number</th>
                         <th>Name</th>
                         <th>Model</th>
 						
@@ -115,7 +115,7 @@ endif;
 		
 ?>
                       <tr>
-                      	
+                      	<td></td>
                         <td><?php echo $row['equip_no'];?></td>
                         <td><?php echo $row['equip_name'];?></td>
                         <td><?php echo $row['model'];?></td>
@@ -495,15 +495,20 @@ function changeValues(){
     
     <script>
       $(function () {
-        $("#example1").DataTable();
-        $('#example2').DataTable({
-          "paging": true,
-          "lengthChange": false,
-          "searching": false,
-          "ordering": true,
-          "info": true,
-          "autoWidth": false
-        });
+        var t = $('#example1').DataTable( {
+          "columnDefs": [ {
+              "searchable": false,
+              "orderable": false,
+              "targets": 0
+          } ],
+          "order": [[ 1, 'asc' ]]
+        } );
+  
+        t.on( 'order.dt search.dt', function () {
+            t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+                cell.innerHTML = i+1;
+            } );
+        } ).draw();
       });
     </script>
   </body>

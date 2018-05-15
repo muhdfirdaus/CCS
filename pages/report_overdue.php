@@ -89,7 +89,8 @@ endif;
                   <table style="font-size:11px" id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th>No.</th>
+                        <th>No</th>
+                        <th>Serial Number</th>
                         <th>Name</th>
                         <th>Model</th>
 								      	<th>Manufacturer</th>
@@ -105,11 +106,12 @@ endif;
                   <tbody>
 <?php
 		
-		$query=mysqli_query($con,"select * from product  where branch_id='$branch' and due_date <= DATE_ADD(CURDATE(),INTERVAL 30 DAY) order by equip_id")or die(mysqli_error());
+		$query=mysqli_query($con,"select * from product  where branch_id='$branch' and due_date <= DATE_ADD(CURDATE(),INTERVAL 30 DAY) order by creation_date")or die(mysqli_error());
 		while($row=mysqli_fetch_array($query)){
 		
 ?>
                       <tr>
+                        <td></td>
                       	<td><?php echo $row['equip_no'];?></td>
                         <td><?php echo $row['equip_name'];?></td>
                         <td><?php echo $row['model'];?></td>
@@ -485,15 +487,20 @@ function changeValues(){
     
     <script>
       $(function () {
-        $("#example1").DataTable();
-        $('#example2').DataTable({
-          "paging": true,
-          "lengthChange": false,
-          "searching": false,
-          "ordering": true,
-          "info": true,
-          "autoWidth": false
-        });
+        var t = $('#example1').DataTable( {
+          "columnDefs": [ {
+              "searchable": false,
+              "orderable": false,
+              "targets": 0
+          } ],
+          "order": [[ 1, 'asc' ]]
+        } );
+  
+        t.on( 'order.dt search.dt', function () {
+            t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+                cell.innerHTML = i+1;
+            } );
+        } ).draw();
       });
     </script>
   </body>

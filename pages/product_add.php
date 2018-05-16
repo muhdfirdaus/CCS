@@ -18,6 +18,7 @@ include('../dist/includes/dbcon.php');
 	$ddate = $_POST['due_date'];
 	$remark=$_POST['remark'];
 	$validation=$_POST['validation'];
+	$project=$_POST['project'];
 	
 	$query2=mysqli_query($con,"select * from product where equip_no='$equip_no' and branch_id='$branch'")or die(mysqli_error($con));
 		$count=mysqli_num_rows($query2);
@@ -32,8 +33,8 @@ include('../dist/includes/dbcon.php');
 
 			
 
-			mysqli_query($con,"INSERT INTO product(equip_no,equip_name,model,accuracy,manufacturer,rangee,location,branch_id,category,dept,cert_no,creation_date,due_date,remark,validation)
-			VALUES('$equip_no','$equip_name','$model','$accuracy','$manufacturer','$rangee','$location','$branch','$category','$dept','$certno','$creation','$ddate','$remark','$validation')")or die(mysqli_error($con));
+			mysqli_query($con,"INSERT INTO product(equip_no,equip_name,model,accuracy,manufacturer,rangee,location,branch_id,category,dept,cert_no,creation_date,due_date,remark,validation, project)
+			VALUES('$equip_no','$equip_name','$model','$accuracy','$manufacturer','$rangee','$location','$branch','$category','$dept','$certno','$creation','$ddate','$remark','$validation', '$project')")or die(mysqli_error($con));
 
 			echo "<script type='text/javascript'>alert('Successfully added new product!');</script>";
 					  echo "<script>document.location='product.php'</script>";  

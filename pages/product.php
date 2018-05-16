@@ -150,7 +150,7 @@ endif;
 						            <th>Manufacturer</th>
                         <th>Lab.</th>
                         <th>Location</th>
-                        <th>Cert. No.</th>
+                        <th>Project</th>
                         <th>Creation Date</th>
                         <th>Due Date</th>
                         <th>PIC</th>
@@ -182,7 +182,7 @@ endif;
                         <td><?php echo $row['manufacturer'];?></td>
                         <td><?php echo $row['category'];?></td>
                         <td><?php echo $row['location'];?></td>
-                        <td><?php echo $row['cert_no'];?></td>
+                        <td><?php echo $row['project'];?></td>
                         <td><?php echo $row['creation_date'];?></td>
                         <td><?php echo $row['due_date'];?></td>
                         <td><?php echo $row['dept'];?></td>
@@ -204,7 +204,7 @@ endif;
         <form class="form-horizontal" method="post" action="product_update.php" enctype='multipart/form-data'>
         
                 
-		<div class="form-group">
+		    <div class="form-group">
           <label class="control-label col-lg-3" for="equip_no">Equipment No.</label>
           <div class="col-lg-9"><input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['equip_id'];?>" required>  
             <input type="text" class="form-control" id="equip_no" value="<?php echo $row['equip_no'];?>" name="equip_no" placeholder="Equipment No." required>  
@@ -245,6 +245,12 @@ endif;
               </select>
           </div>
         </div> 
+        <div class="form-group">
+          <label class="control-label col-lg-3" for="rangee">Project</label>
+          <div class="col-lg-9"><input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['equip_id'];?>" > 
+            <input type="text" class="form-control" id="project" name="project" value="<?php echo $row['project'];?>" placeholder="Project" >  
+          </div>
+        </div>
         <div class="form-group">
           <label class="control-label col-lg-3" for="file">Interval</label>
           <div class="col-lg-9"><input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['equip_id'];?>" required> 
@@ -606,6 +612,12 @@ function changeValue(){
               </select>
           </div>
         </div> 
+         <div class="form-group">
+          <label class="control-label col-lg-3" for="project">Project</label>
+          <div class="col-lg-9">
+            <input type="text" class="form-control" id="project" name="project" placeholder="Project" value="-" required>  
+          </div>
+        </div>
         <div class="form-group">
           <label class="control-label col-lg-3" for="file">Interval</label>
           <div class="col-lg-9">

@@ -104,7 +104,7 @@ $query=mysqli_query($con,"select * from branch where branch_id='$branch'")or die
                   </li>
                   
                   <!-- Tasks Menu -->
-				   <li class="dropdown notifications-menu">
+				        <li class="dropdown notifications-menu">
                     <!-- Menu toggle button -->
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                       <i class="glyphicon glyphicon-stats text-red"></i> Report
@@ -117,31 +117,39 @@ $query=mysqli_query($con,"select * from branch where branch_id='$branch'")or die
                         
 						
                           <li><!-- start notification -->
-                            <a href="report.php">
-                              <i class="glyphicon glyphicon-th-list text-blue"></i>Equipment Listing
-                            </a>
+                              <a href="report.php">
+                                <i class="glyphicon glyphicon-th-list text-blue"></i>Equipment Listing
+                              </a>
                           </li><!-- end notification -->
-						    <li><!-- start notification -->
-                            <a href="report_active.php">
-                              <i class="glyphicon glyphicon-ok text-green"></i>Listing by Active
-                            </a>
+
+                          <li><!-- start notification -->
+                              <a href="report_active.php">
+                                <i class="glyphicon glyphicon-ok text-green"></i>Listing by Active
+                              </a>
                           </li><!-- end notification -->
-						  
-						  <li><!-- start notification -->
-                            <a href="report_inactive.php">
-                              <i class="glyphicon glyphicon-ban-circle text-grey"></i>Listing by Inactive
-                            </a>
+                  
+                          <li><!-- start notification -->
+                              <a href="report_inactive.php">
+                                <i class="glyphicon glyphicon-ban-circle text-grey"></i>Listing by Inactive
+                              </a>
                           </li><!-- end notification -->
-						  
-						    <li><!-- start notification -->
-                            <a href="report_overdue.php">
-                              <i class="glyphicon glyphicon-warning-sign text-red"></i>Listing by Overdue in 30 Days
-                            </a>
+                  
+                          <li><!-- start notification -->
+                              <a href="report_overdue.php">
+                                <i class="glyphicon glyphicon-warning-sign text-red"></i>Listing by Overdue in 30 Days
+                              </a>
                           </li><!-- end notification -->
-						         <li><!-- start notification -->
-                            <a href="report_accreditation.php">
-                              <i class="glyphicon glyphicon-check text-green"></i>Listing by Accreditation
-                            </a>
+
+                          <li><!-- start notification -->
+                              <a href="report_accreditation.php">
+                                <i class="glyphicon glyphicon-check text-green"></i>Listing by Accreditation
+                              </a>
+                          </li><!-- end notification -->  
+
+                          <li><!-- start notification -->
+                              <a href="report_project.php">
+                                <i class="glyphicon glyphicon-tasks text-yellow"></i>Listing by Project
+                              </a>
                           </li><!-- end notification -->  
                         </ul>
                       </li>

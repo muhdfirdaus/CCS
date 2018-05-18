@@ -91,19 +91,17 @@ endif;
                         <th>No</th>
                         <th>Serial Number</th>
                         <th>Name</th>
+                        <th>Project</th>
                         <th>Model</th>
-						
-						<th>Manufacturer</th>
-                        
-            						<th>Lab.</th>
-									<th>Location</th>
-									
-									<th>Cert. No.</th>
+						            <th>Manufacturer</th>
+                        <th>Lab.</th>
+									      <th>Location</th>
+                        <th>Cert. No.</th>
             						<th>Creation Date</th>
-									<th>Due Date</th>
-									<th>PIC</th>
-									<th>Remark</th>
-								<th></th>
+                        <th>Due Date</th>
+                        <th>PIC</th>
+                        <th>Remark</th>
+                        <th></th>
 								
                       </tr>
                     </thead>
@@ -118,22 +116,19 @@ endif;
                       	<td></td>
                         <td><?php echo $row['equip_no'];?></td>
                         <td><?php echo $row['equip_name'];?></td>
-                        <td><?php echo $row['model'];?></td>
-						
-						<td><?php echo $row['manufacturer'];?></td>
+                        <td><?php echo $row['project'];?></td>	
+                        <td><?php echo $row['model'];?></td>	
+                        <td><?php echo $row['manufacturer'];?></td>
                         <td><?php echo $row['category'];?></td>
-						<td><?php echo $row['location'];?></td>
-						<td><?php echo $row['cert_no'];?></td>
-            			<td><?php echo $row['creation_date'];?></td>
-            			<td><?php echo $row['due_date'];?></td>
-						<td><?php echo $row['dept'];?></td>
-						<td><?php echo $row['remark'];?></td>
-						
-						
-                        <td>
-				<a href="#updateordinance<?php echo $row['equip_id'];?>" data-target="#updateordinance<?php echo $row['equip_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-edit text-blue"></i></a>
-			
-						</td>
+                        <td><?php echo $row['location'];?></td>
+                        <td><?php echo $row['cert_no'];?></td>
+                        <td><?php echo $row['creation_date'];?></td>
+                        <td><?php echo $row['due_date'];?></td>
+                        <td><?php echo $row['dept'];?></td>
+                        <td><?php echo $row['remark'];?></td>
+						            <td>
+                          <a href="#updateordinance<?php echo $row['equip_id'];?>" data-target="#updateordinance<?php echo $row['equip_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-edit text-blue"></i></a>
+                        </td>
                       </tr>
 <div id="updateordinance<?php echo $row['equip_id'];?>" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
 	

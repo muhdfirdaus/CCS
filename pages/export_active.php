@@ -9,12 +9,12 @@ mysqli_select_db($conn, 'inventory');
 $setSql = "SELECT `ur_Id`,`ur_username`,`ur_password` FROM `tbl_user`";
 $setRec = mysqli_query($conn,$setSql);
 
-$stmt=$db_con->prepare("select equip_id,equip_name,equip_no,model,accuracy,rangee,manufacturer,category,location,dept,status,cert_no,creation_date,due_date,remark from product where remark='Active' and branch_id='$branch'");
+$stmt=$db_con->prepare("select equip_id,equip_name,project,equip_no,model,accuracy,rangee,manufacturer,category,location,dept,status,cert_no,creation_date,due_date,remark from product where remark='Active' and branch_id='$branch'");
 $stmt->execute();
 
 
 $columnHeader ='';
-$columnHeader = "Equipment ID"."\t"."Equipment Name"."\t"."Equipment No."."\t"."Model"."\t"."Accuracy"."\t". "Range"."\t". "Manufacturer"."\t". "Lab"."\t". "Location"."\t". "PIC"."\t". "Interval"."\t". "Cert. No."."\t". "Creation Date"."\t". "Due Date"."\t". "Remark"."\t";
+$columnHeader = "Equipment ID"."\t"."Equipment Name"."\t"."Project"."\t"."Equipment No."."\t"."Model"."\t"."Accuracy"."\t". "Range"."\t". "Manufacturer"."\t". "Lab"."\t". "Location"."\t". "PIC"."\t". "Interval"."\t". "Cert. No."."\t". "Creation Date"."\t". "Due Date"."\t". "Remark"."\t";
 
 
 $setData='';

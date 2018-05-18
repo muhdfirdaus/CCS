@@ -65,7 +65,7 @@ endif;
             <h1>
               <a class = "btn btn-primary btn-print" href = "home.php"><i class ="glyphicon glyphicon-arrow-left"></i> Back to Homepage</a>   
               <a class = "btn btn-success btn-print" href = "" onclick="PrintDoc()"><i class ="glyphicon glyphicon-print"></i> Print</a>
-              <a class = "btn btn-primary btn-print" href = "export.php"><i class ="glyphicon glyphicon-export"></i>Export to Excel</a>  
+              <a class = "btn btn-primary btn-print" href = "export_overdue.php"><i class ="glyphicon glyphicon-export"></i>Export to Excel</a>  
               <a class = "btn btn-primary btn-print" href = "send_mail.php"><i class ="glyphicon glyphicon-envelope"></i>Send as Email</a>
             </h1>
             <ol class="breadcrumb">

@@ -128,7 +128,7 @@ endif;
                               <option value="model"  >Model</option>
                               <option value="manufacturer"  >Manufacturer</option>
                               <option value="location"  >Location</option>
-                              <option value="cert_no"  >Cert. No</option>
+                              <option value="project"  >Project</option>
                               <option value="dept"  >PIC</option>
                               <option value="remark"  >Status</option>
                             </select>

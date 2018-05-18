@@ -92,6 +92,7 @@ endif;
                         <th>No</th>
                         <th>Serial Number</th>
                         <th>Name</th>
+                        <th>Project</th>
                         <th>Model</th>
                         <th>Manufacturer</th>
                         <th>Lab.</th>
@@ -114,6 +115,7 @@ endif;
                         <td></td>
                         <td><?php echo $row['equip_no'];?></td>
                         <td><?php echo $row['equip_name'];?></td>
+                        <td><?php echo $row['project'];?></td>
                         <td><?php echo $row['model'];?></td>
 						
 						<td><?php echo $row['manufacturer'];?></td>

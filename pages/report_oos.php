@@ -34,8 +34,8 @@ endif;
 
         var toPrint = document.getElementById('printarea');
 
-        var popupWin = window.open('', '_blank', 'width=1200,height=850,location=no,left=150px');
-		
+        var popupWin = window.open('', '_blank', 'width=600,height=850,location=no,left=150px');
+
         popupWin.document.open();
 
         popupWin.document.write('<html><title>::Equipment Record::</title><link rel="stylesheet" type="text/css" href="print.css" /></head><body onload="window.print()">')
@@ -65,7 +65,7 @@ endif;
             <h1>
              <a class = "btn btn-primary btn-print" href = "home.php"><i class ="glyphicon glyphicon-arrow-left"></i> Back to Homepage</a>   
                <a class = "btn btn-success btn-print" href = "" onclick="PrintDoc()"><i class ="glyphicon glyphicon-print"></i> Print</a>
-			    <a class = "btn btn-primary btn-print" href = "export_active.php"><i class ="glyphicon glyphicon-export"></i>Export to Excel</a>  
+			    <a class = "btn btn-primary btn-print" href = "export_oos.php"><i class ="glyphicon glyphicon-export"></i>Export to Excel</a>  
             </h1>
             <ol class="breadcrumb">
               <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -77,14 +77,14 @@ endif;
           <section class="content">
             <div class="row">
 	     
-        
+            
             <div class="col-xs-12">
               <div style="width:105%" class="box box-primary">
     
                 <div class="box-header">
                   <h3 class="box-title">Calibration List</h3>
                 </div><!-- /.box-header -->
-                <div id="printarea" style="width:100%" class="box-body">
+               <div id="printarea" style="width:100%" class="box-body">
                   <table style="font-size:11px" id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
@@ -97,16 +97,17 @@ endif;
                         <th>Lab.</th>
                         <th>Location</th>
                         <th>Cert. No.</th>
-            						<th>Creation Date</th>
+            			      <th>Creation Date</th>
                         <th>Due Date</th>
                         <th>PIC</th>
                         <th>Remark</th>
-							        </tr>
+                        <th></th>
+                    </tr>
                     </thead>
                     <tbody>
 <?php
 		
-		$query=mysqli_query($con,"select * from product  where branch_id='$branch' and remark like 'active%' order by equip_name")or die(mysqli_error());
+		$query=mysqli_query($con,"select * from product  where branch_id='$branch' and remark like 'ooss%' order by creation_date")or die(mysqli_error());
 		while($row=mysqli_fetch_array($query)){
 		
 ?>
@@ -114,9 +115,9 @@ endif;
                       	<td></td>
                         <td><?php echo $row['equip_no'];?></td>
                         <td><?php echo $row['equip_name'];?></td>
-                        <td><?php echo $row['project'];?></td>
-                        <td><?php echo $row['model'];?></td>
-						          	<td><?php echo $row['manufacturer'];?></td>
+                        <td><?php echo $row['project'];?></td>	
+                        <td><?php echo $row['model'];?></td>	
+                        <td><?php echo $row['manufacturer'];?></td>
                         <td><?php echo $row['category'];?></td>
                         <td><?php echo $row['location'];?></td>
                         <td><?php echo $row['cert_no'];?></td>
@@ -124,6 +125,9 @@ endif;
                         <td><?php echo $row['due_date'];?></td>
                         <td><?php echo $row['dept'];?></td>
                         <td><?php echo $row['remark'];?></td>
+						            <td>
+                          <a href="#updateordinance<?php echo $row['equip_id'];?>" data-target="#updateordinance<?php echo $row['equip_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-edit text-blue"></i></a>
+                        </td>
                       </tr>
 <div id="updateordinance<?php echo $row['equip_id'];?>" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
 	
@@ -299,175 +303,7 @@ function changeValue(){
       </div><!-- /.content-wrapper -->
       <?php include('../dist/includes/footer.php');?>
     </div><!-- ./wrapper -->
-<div id="add" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-  <div class="modal-dialog">
-    <div class="modal-content" style="height:auto">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">Add New Equipment</h4>
-              </div>
-              <div style="font-size:12px" class="modal-body">
-        <form class="form-horizontal" method="post" action="product_add.php" enctype='multipart/form-data'>
-        <div class="form-group">
-          <label class="control-label col-lg-3" for="equip_no">Equipment No.</label>
-          <div class="col-lg-9">
-            <input type="text" class="form-control" id="equip_no" name="equip_no" placeholder="Equipment No." required>  
-          </div>
-        </div>
-                
-        <div class="form-group">
-          <label class="control-label col-lg-3" for="equip_name">Name</label>
-          <div class="col-lg-9"><input type="hidden" class="form-control" id="id" name="id" required>  
-            <input type="text" class="form-control" id="equip_name" name="equip_name" placeholder="Equipment Name" required>  
-          </div>
-        </div> 
-        <div class="form-group">
-          <label class="control-label col-lg-3" for="model">Model</label>
-          <div class="col-lg-9">
-           <input type="text" class="form-control" id="model" name="model" placeholder="Model" required>  
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="control-label col-lg-3" for="file">Manufacturer</label>
-          <div class="col-lg-9">
-              <select class="form-control select2" style="width: 100%;" name="manufacturer" required>
-			    <option disabled selected value>-- Please Select --</option>
-                <?php
-            
-              $query2=mysqli_query($con,"select * from manufacturer order by manufacturer_name")or die(mysqli_error());
-                while($row2=mysqli_fetch_array($query2)){
-                ?>
-                  <option value="<?php echo $row2['manufacturer_name'];?>"><?php echo $row2['manufacturer_name'];?></option>
-                <?php }?>
-              </select>
-          </div>
-        </div> 
-        <div class="form-group">
-          <label class="control-label col-lg-3" for="accuracy">Accuracy</label>
-          <div class="col-lg-9">
-            <input type="text" class="form-control" id="accuracy" name="accuracy" placeholder="Accuracy" required>  
-          </div>
-        </div>
-         <div class="form-group">
-          <label class="control-label col-lg-3" for="rangee">Range</label>
-          <div class="col-lg-9">
-            <input type="text" class="form-control" id="rangee" name="rangee" placeholder="Range" required>  
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="control-label col-lg-3" for="file">Location</label>
-          <div class="col-lg-9">
-              <select class="form-control select2" style="width: 100%;" name="location" required>
-			    <option disabled selected value>-- Please Select --</option>
-                <?php
-            
-              $query2=mysqli_query($con,"select * from location order by location_name")or die(mysqli_error());
-                while($row2=mysqli_fetch_array($query2)){
-                ?>
-                  <option value="<?php echo $row2['location_name'];?>"><?php echo $row2['location_name'];?></option>
-                <?php }?>
-              </select>
-          </div>
-        </div> 
-        <div class="form-group">
-          <label class="control-label col-lg-3" for="file">Interval</label>
-          <div class="col-lg-9">
-                <select class="form-control select2" style="width: 100%;" name="status" id="filterx" onchange="changeValues();" required>
-	 <option disabled selected value>--Please Select --</option>
-<option id="six" value="six">6 Month(s)</option>
-<option id="one" value="one">1 Year</option>
-<option id="two" value="two">2 Year(s)</option>
-<option id="three" value="three">3 Year(s)</option>
-</select>
-          </div>
-        </div> 
-        <script type="text/javascript">
-function changeValues(){
-    var option=document.getElementById('filterx').value;
 
-    if(option=="six"){
-            document.getElementById('field').value="<?php echo date('Y-m-d', mktime(0, 0, 0, date("m")+6, date("d"), date("Y"))); ?>";
-    }
-        else if(option=="one"){
-            document.getElementById('field').value="<?php echo date('Y-m-d', mktime(0, 0, 0, date("m"), date("d"), date("Y")+1)); ?>";
-        }
-			else if(option=="two"){
-            document.getElementById('field').value="<?php echo date('Y-m-d', mktime(0, 0, 0, date("m"), date("d"), date("Y")+2)); ?>";
-        }
-		else if(option=="three"){
-            document.getElementById('field').value="<?php echo date('Y-m-d', mktime(0, 0, 0, date("m"), date("d"), date("Y")+3)); ?>";
-        }	
-}
-</script>
-        <div class="form-group">
-              <label class="control-label col-lg-3" >Calibration Lab.</label>
-              <div class="col-lg-9">
-                <select class="form-control select2" style="width: 100%;" name="category" required>
-                <option disabled selected value>-- Please Select --</option>
-                <?php
-            
-              $queryc=mysqli_query($con,"select * from category order by cat_name")or die(mysqli_error());
-                while($rowc=mysqli_fetch_array($queryc)){
-                ?>
-                  <option value="<?php echo $rowc['cat_name'];?>"><?php echo $rowc['cat_name'];?></option>
-                <?php }?>
-              </select>
-              </div><!-- /.input group -->
-              </div><!-- /.form group -->
-			  
-			   <div class="form-group">
-          <label class="control-label col-lg-3" for="dept">PIC</label>
-          <div class="col-lg-9">
-            <input type="text" class="form-control" id="dept" name="dept" placeholder="PIC" required>  
-          </div>
-        </div> 
-		
-		<div class="form-group">
-          <label class="control-label col-lg-3" for="cal_no">Cert No.</label>
-          <div class="col-lg-9">
-            <input type="text" class="form-control" id="cert_no" name="cert_no" placeholder="Certification No." required>  
-          </div>
-        </div> 
-        <div class="form-group">
-          <label class="control-label col-lg-3" for="creation_date">Creation Date</label>
-          <div class="col-lg-9">
-            <input type="text" class="form-control" id="creation_date" readonly="readonly"  name="creation_date" value="<?php echo date('Y-m-d'); ?>"  placeholder="Creation Date"  required>  
-          </div>
-        </div>
-         <div class="form-group">
-          <label class="control-label col-lg-3" for="due_date">Due Date</label>
-          <div class="col-lg-9">
-           <input type="text" class="form-control"  name="due_date" readonly="readonly" id ="field" value="" size="20" maxlength="20">
-          </div>
-        </div>
-		  <div class="form-group">
-          <label class="control-label col-lg-3" for="file">Remark</label>
-          <div class="col-lg-9">
-              <select class="form-control select2" style="width: 100%;" name="remark" required>
-                <option disabled selected value>-- Please Select --</option>
-				<option id="Active" value="Active">Active</option>
-<option id="Inactive" value="Inactive">Inactive</option>
-<option id="PSNM" value="PSNM">PSNM Equipment</option>
-<option id="OOS" value="OOS">Out of Service</option>
-<option id="Consign" value="Consign">Consign</option>
-<option id="Spoil" value="Spoil">Spoil</option>
-<option id="Closed" value="Repaired">Closed</option>
-              </select>
-          </div>
-        </div> 
-              </div>
-			 
-              <div class="modal-footer">
-    <button type="submit" class="btn btn-primary">Save Changes</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-        </form>
-            </div>
-      
-        </div><!--end of modal-dialog-->
- </div>
- <!--end of modal--> 
     <!-- jQuery 2.1.4 -->
     <script src="../plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <!-- Bootstrap 3.3.5 -->

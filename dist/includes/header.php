@@ -133,6 +133,12 @@ $query=mysqli_query($con,"select * from branch where branch_id='$branch'")or die
                                 <i class="glyphicon glyphicon-ban-circle text-grey"></i>Listing by Inactive
                               </a>
                           </li><!-- end notification -->
+
+                          <li><!-- start notification -->
+                              <a href="report_oos.php">
+                                <i class="glyphicon glyphicon-remove text-green"></i>Listing for Out Of Service
+                              </a>
+                          </li><!-- end notification -->  
                   
                           <li><!-- start notification -->
                               <a href="report_overdue.php">

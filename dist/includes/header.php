@@ -148,7 +148,7 @@ $query=mysqli_query($con,"select * from branch where branch_id='$branch'")or die
 
                           <li><!-- start notification -->
                               <a href="report_project.php">
-                                <i class="glyphicon glyphicon-tasks text-yellow"></i>Listing by Project
+                                <i class="glyphicon glyphicon-briefcase text-yellow"></i>Listing for Automotive Project
                               </a>
                           </li><!-- end notification -->  
                         </ul>

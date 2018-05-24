@@ -107,7 +107,7 @@ endif;
                     <tbody>
 <?php
 		
-		$query=mysqli_query($con,"select * from product  where branch_id='$branch' and remark like 'ooss%' order by creation_date")or die(mysqli_error());
+		$query=mysqli_query($con,"select * from product  where branch_id='$branch' and remark like 'oos%' order by creation_date")or die(mysqli_error());
 		while($row=mysqli_fetch_array($query)){
 		
 ?>

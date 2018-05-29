@@ -219,9 +219,9 @@ endif;
         </div> 
        
         <div class="form-group">
-          <label class="control-label col-lg-3" for="accuracy">Accuracy</label>
+          <label class="control-label col-lg-3" for="accuracy">Tolerance</label>
           <div class="col-lg-9"><input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['equip_id'];?>" required> 
-            <input type="text" class="form-control" id="accuracy" name="accuracy" value="<?php echo $row['accuracy'];?>" placeholder="Accuracy" required>  
+            <input type="text" class="form-control" id="accuracy" name="accuracy" value="<?php echo $row['accuracy'];?>" placeholder="Tolerance" required>  
           </div>
         </div>
          <div class="form-group">
@@ -586,9 +586,9 @@ function changeValue(){
           </div>
         </div> 
         <div class="form-group">
-          <label class="control-label col-lg-3" for="accuracy">Accuracy</label>
+          <label class="control-label col-lg-3" for="accuracy">Tolerance</label>
           <div class="col-lg-9">
-            <input type="text" class="form-control" id="accuracy" name="accuracy" placeholder="Accuracy" required>  
+            <input type="text" class="form-control" id="accuracy" name="accuracy" placeholder="Tolerance" required>  
           </div>
         </div>
          <div class="form-group">

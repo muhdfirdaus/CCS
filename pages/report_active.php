@@ -101,6 +101,7 @@ endif;
                         <th>Due Date</th>
                         <th>PIC</th>
                         <th>Remark</th>
+                        <th></th>
 							        </tr>
                     </thead>
                     <tbody>
@@ -123,7 +124,10 @@ endif;
                         <td><?php echo $row['creation_date'];?></td>
                         <td><?php echo $row['due_date'];?></td>
                         <td><?php echo $row['dept'];?></td>
-                        <td><?php echo $row['remark'];?></td>
+                        <td><?php echo $row['remark'];?></td>						
+                        <td>
+				                  <a href="#updateordinance<?php echo $row['equip_id'];?>" data-target="#updateordinance<?php echo $row['equip_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-edit text-blue"></i></a>
+			                  </td>
                       </tr>
 <div id="updateordinance<?php echo $row['equip_id'];?>" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
 	
@@ -151,9 +155,9 @@ endif;
         </div> 
        
         <div class="form-group">
-          <label class="control-label col-lg-3" for="accuracy">Accuracy</label>
+          <label class="control-label col-lg-3" for="accuracy">Tolerance</label>
           <div class="col-lg-9">
-            <input type="text" class="form-control" id="accuracy" name="accuracy" value="<?php echo $row['accuracy'];?>" placeholder="Accuracy" required>  
+            <input type="text" class="form-control" id="accuracy" name="accuracy" value="<?php echo $row['accuracy'];?>" placeholder="Tolerance" required>  
           </div>
         </div>
          <div class="form-group">

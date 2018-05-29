@@ -107,7 +107,7 @@ endif;
                   <tbody>
 <?php
 		
-		$query=mysqli_query($con,"select * from product  where branch_id='$branch' and due_date <= DATE_ADD(CURDATE(),INTERVAL 30 DAY) order by creation_date")or die(mysqli_error());
+		$query=mysqli_query($con,"select * from product  where branch_id='$branch' and remark like 'active%' and due_date <= DATE_ADD(CURDATE(),INTERVAL 30 DAY) order by creation_date")or die(mysqli_error());
 		while($row=mysqli_fetch_array($query)){
 		
 ?>

@@ -15,7 +15,7 @@ $filename = "overdue_".date('Ymd'); //File Name
 
 
 //create MySQL connection   
-$sql = "select * from product  where branch_id='$branch' and due_date <= DATE_ADD(CURDATE(),INTERVAL 30 DAY) order by equip_id";
+$sql = "select * from product  where branch_id='$branch' and remark like 'active%' and due_date <= DATE_ADD(CURDATE(),INTERVAL 30 DAY) order by equip_id";
 $Connect = @mysql_connect($DB_Server, $DB_Username, $DB_Password) or die("Couldn't connect to MySQL:<br>" . mysql_error() . "<br>" . mysql_errno());
 //select database   
 $Db = @mysql_select_db($DB_DBName, $Connect) or die("Couldn't select database:<br>" . mysql_error(). "<br>" . mysql_errno());   

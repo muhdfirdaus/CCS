@@ -23,7 +23,7 @@ include('../dist/includes/dbcon.php');
 	accuracy='$accuracy',location='$location',project='$project',category='$category',dept='$dept',cert_no='$certno',creation_date='$creation',due_date='$ddate',remark='$remark',validation='$validation' where equip_id='$id'")or die(mysqli_error($con));
 	
 	echo "<script type='text/javascript'>alert('Successfully updated equipment details!');</script>";
-	echo "<script>document.location='product.php'</script>";  
+	echo "<script>window.history.back();</script>";  
 	
 	
 ?>

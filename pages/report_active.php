@@ -129,163 +129,183 @@ endif;
 				                  <a href="#updateordinance<?php echo $row['equip_id'];?>" data-target="#updateordinance<?php echo $row['equip_id'];?>" data-toggle="modal" style="color:#fff;" class="small-box-footer"><i class="glyphicon glyphicon-edit text-blue"></i></a>
 			                  </td>
                       </tr>
-<div id="updateordinance<?php echo $row['equip_id'];?>" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                      <div id="updateordinance<?php echo $row['equip_id'];?>" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
 	
- <div class="modal-dialog">
-	  <div class="modal-content" style="height:auto">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">Update Equipment Details</h4>
-              </div>
-              <div style="font-size:11px" class="modal-body">
-        <form class="form-horizontal" method="post" action="product_update.php" enctype='multipart/form-data'>
-        <div class="form-group">
-          <label class="control-label col-lg-3" for="equip_no">Equipment No.</label>
-          <div class="col-lg-9">
-            <input type="text" class="form-control" id="equip_no" value="<?php echo $row['equip_no'];?>" name="equip_no" placeholder="Equipment No." required>  
-          </div>
+  <div class="modal-dialog">
+     <div class="modal-content" style="height:auto">
+               <div class="modal-header">
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                   <span aria-hidden="true">×</span></button>
+                 <h4 class="modal-title">Update Equipment Details</h4>
+               </div>
+               <div style="font-size:11px" class="modal-body">
+         <form class="form-horizontal" method="post" action="product_update.php" enctype='multipart/form-data'>
+         
+                 
+         <div class="form-group">
+           <label class="control-label col-lg-3" for="equip_no">Equipment No.</label>
+           <div class="col-lg-9"><input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['equip_id'];?>" required>  
+             <input type="text" class="form-control" id="equip_no" value="<?php echo $row['equip_no'];?>" name="equip_no" placeholder="Equipment No." required>  
+           </div>
+         </div>
+                 
+         <div class="form-group">
+           <label class="control-label col-lg-3" for="equip_name">Name</label>
+           <div class="col-lg-9"><input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['equip_id'];?>" required> 
+             <input type="text" class="form-control" id="equip_name" value="<?php echo $row['equip_name'];?>" name="equip_name" placeholder="Equipment Name" required>  
+           </div>
+         </div> 
+        
+         <div class="form-group">
+           <label class="control-label col-lg-3" for="accuracy">Tolerance</label>
+           <div class="col-lg-9"><input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['equip_id'];?>" required> 
+             <input type="text" class="form-control" id="accuracy" name="accuracy" value="<?php echo $row['accuracy'];?>" placeholder="Tolerance" required>  
+           </div>
+         </div>
+          <div class="form-group">
+           <label class="control-label col-lg-3" for="rangee">Range</label>
+           <div class="col-lg-9"><input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['equip_id'];?>" required> 
+             <input type="text" class="form-control" id="rangee" name="range" value="<?php echo $row['rangee'];?>" placeholder="Range" required>  
+           </div>
+         </div>
+         <div class="form-group">
+           <label class="control-label col-lg-3" for="file">Location</label>
+           <div class="col-lg-9"><input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['equip_id'];?>" required> 
+               <select class="form-control select2" style="width: 100%;" name="location" required>
+           <option disabled selected value>-- Please Select --</option>
+                 <?php
+             
+               $query2=mysqli_query($con,"select * from location order by location_name")or die(mysqli_error());
+                 while($row2=mysqli_fetch_array($query2)){
+                 ?>
+                   <option value="<?php echo $row2['location_name'];?>"<?php if($row2['location_name']==$row['location']){echo "selected";} ?>><?php echo $row2['location_name'];?></option>
+                 <?php }?>
+               </select>
+           </div>
+         </div> 
+         <div class="form-group">
+           <label class="control-label col-lg-3" for="rangee">Project</label>
+           <div class="col-lg-9"><input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['equip_id'];?>" > 
+             <input type="text" class="form-control" id="project" name="project" value="<?php echo $row['project'];?>" placeholder="Project" >  
+           </div>
+         </div>
+         <div class="form-group">
+           <label class="control-label col-lg-3" for="file">Interval</label>
+           <div class="col-lg-9"><input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['equip_id'];?>" required> 
+                 <select class="form-control select2" style="width: 100%;" name="status" id="filterxx" onchange="changeValue();" required>
+    <option disabled selected value>--Please Select --</option>
+ <option id="six" value="six">6 Month(s)</option>
+ <option id="one" value="one">1 Year</option>
+ <option id="two" value="two">2 Year(s)</option>
+ <option id="three" value="three">3 Year(s)</option>
+ </select>
+           </div>
+         </div> 
+         <script type="text/javascript">
+ function changeValue(){
+     var option=document.getElementById('filterxx').value;
+ 
+     if(option=="six"){
+             document.getElementById('fieldx').value="<?php echo date('Y-m-d', mktime(0, 0, 0, date("m")+6, date("d"), date("Y"))); ?>";
+     }
+         else if(option=="one"){
+             document.getElementById('fieldx').value="<?php echo date('Y-m-d', mktime(0, 0, 0, date("m"), date("d"), date("Y")+1)); ?>";
+         }
+       else if(option=="two"){
+             document.getElementById('fieldx').value="<?php echo date('Y-m-d', mktime(0, 0, 0, date("m"), date("d"), date("Y")+2)); ?>";
+         }
+       else if(option=="three"){
+             document.getElementById('fieldx').value="<?php echo date('Y-m-d', mktime(0, 0, 0, date("m"), date("d"), date("Y")+3)); ?>";
+         }
+ }
+ </script>
+         <div class="form-group">
+               <label class="control-label col-lg-3" >Calibration Lab.</label>
+               <div class="col-lg-9"><input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['equip_id'];?>" required> 
+                 <select class="form-control select2" style="width: 100%;"  value="<?php echo $row['category'];?>" name="category" required>
+                 <option disabled selected value>-- Please Select --</option>
+                 <?php
+             
+               $queryc=mysqli_query($con,"select * from category order by cat_name")or die(mysqli_error());
+                 while($rowc=mysqli_fetch_array($queryc)){
+                 ?>
+                   <option value="<?php echo $rowc['cat_name'];?>"><?php echo $rowc['cat_name'];?></option>
+                 <?php }?>
+               </select>
+               </div><!-- /.input group -->
+               </div><!-- /.form group -->
+         
+          <div class="form-group">
+           <label class="control-label col-lg-3" for="dept">PIC</label>
+           <div class="col-lg-9"><input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['equip_id'];?>" required> 
+             <input type="text" class="form-control" id="dept" name="dept" value="<?php echo $row['dept'];?>" placeholder="PIC" required>  
+           </div>
+         </div> 
+     
+     <div class="form-group">
+           <label class="control-label col-lg-3" for="cert_no">Cert No.</label>
+           <div class="col-lg-9"><input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['equip_id'];?>" required> 
+             <input type="text" class="form-control" id="cert_no" name="cert_no" value="<?php echo $row['cert_no'];?>" placeholder="Certification No." required>  
+           </div>
+         </div> 
+         <div class="form-group">
+           <label class="control-label col-lg-3" for="creation_date">Creation Date</label>
+           <div class="col-lg-9"><input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['equip_id'];?>" required> 
+             <input type="date" class="form-control" id="creation_date"  name="creation_date"  value="<?php echo $row['creation_date'];?>"  placeholder="Creation Date"  required>  
+           </div>
+         </div>
+          <div class="form-group">
+           <label class="control-label col-lg-3" for="due_date">Due Date</label>
+           <div class="col-lg-9"><input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['equip_id'];?>" required> 
+            <input type="date" class="form-control"  name="due_date"  id="datepicker"  value="<?php echo $row['due_date'];?>"  size="20" maxlength="20">
+           </div>
+   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+ <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
+ 
+   
+ 
+     <script  src="js/index.js"></script>
+ 
+ 
+         </div>
+      <div class="form-group">
+           <label class="control-label col-lg-3" for="file">Status</label>
+           <div class="col-lg-9"><input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['equip_id'];?>" required> 
+               <select class="form-control select2" style="width: 100%;"  name="remark" required>              
+         <option id="Active" value="Active">Active</option>
+                 <option id="Inactive" value="Inactive">Inactive</option>
+                 <option id="Closed" value="Closed">Closed</option>
+                 <option id="PSNM" value="PSNM">PSNM Equipment</option>
+                 <option id="OOS" value="OOS">Out of Service</option>
+                 <option id="Consign" value="Consign">Consign</option>
+                 <option id="Spoiled" value="Spoiled">Spoiled</option>
+                 <option id="Missing" value="Missing">Missing</option>
+                 <option id="Repair" value="Repair">Repair</option>
+               </select>
+           </div>
+         </div> 
+      <div class="form-group">
+           <label class="control-label col-lg-3" for="file">Remark</label>
+           <div class="col-lg-9"><input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['equip_id'];?>" required> 
+               <select class="form-control select2" style="width: 100%;" name="validation" required>
+                 <option disabled selected value>-- Please Select --</option>
+         <option id="NoAccreditation" value="NoAccreditation">No Accreditation</option>
+                 <option id="Accreditation" value="Accreditation">Accreditation</option>
+               </select>
+           </div>
+         </div> 
+               
         </div>
-                
-        <div class="form-group">
-          <label class="control-label col-lg-3" for="equip_name">Name</label>
-          <div class="col-lg-9"><input type="hidden" class="form-control" id="id" name="id" required>  
-            <input type="text" class="form-control" id="equip_name" value="<?php echo $row['equip_name'];?>" name="equip_name" placeholder="Equipment Name" required>  
-          </div>
-        </div> 
+               <div class="modal-footer">			
+                 <button type="submit" class="btn btn-primary">Save Changes</button>
+                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+               </div>
+         </form>
+             </div>
        
-        <div class="form-group">
-          <label class="control-label col-lg-3" for="accuracy">Tolerance</label>
-          <div class="col-lg-9">
-            <input type="text" class="form-control" id="accuracy" name="accuracy" value="<?php echo $row['accuracy'];?>" placeholder="Tolerance" required>  
-          </div>
-        </div>
-         <div class="form-group">
-          <label class="control-label col-lg-3" for="rangee">Range</label>
-          <div class="col-lg-9">
-            <input type="text" class="form-control" id="rangee" name="range" value="<?php echo $row['rangee'];?>" placeholder="Range" required>  
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="control-label col-lg-3" for="file">Location</label>
-          <div class="col-lg-9">
-              <select class="form-control select2" style="width: 100%;" name="location" required>
-			    <option disabled selected value>-- Please Select --</option>
-                <?php
-            
-              $query2=mysqli_query($con,"select * from location order by location_name")or die(mysqli_error());
-                while($row2=mysqli_fetch_array($query2)){
-                ?>
-                  <option value="<?php echo $row2['location_name'];?>"><?php echo $row2['location_name'];?></option>
-                <?php }?>
-              </select>
-          </div>
-        </div> 
-        <div class="form-group">
-          <label class="control-label col-lg-3" for="file">Interval</label>
-          <div class="col-lg-9">
-                <select class="form-control select2" style="width: 100%;" name="status" id="filterxx" onchange="changeValue();" required>
-	 <option disabled selected value>--Please Select --</option>
-<option id="six" value="six">6 Month(s)</option>
-<option id="one" value="one">1 Year</option>
-<option id="two" value="two">2 Year(s)</option>
-<option id="three" value="three">3 Year(s)</option>
-</select>
-          </div>
-        </div> 
-        <script type="text/javascript">
-function changeValue(){
-    var option=document.getElementById('filterxx').value;
-
-    if(option=="six"){
-            document.getElementById('fieldx').value="<?php echo date('Y-m-d', mktime(0, 0, 0, date("m")+6, date("d"), date("Y"))); ?>";
-    }
-        else if(option=="one"){
-            document.getElementById('fieldx').value="<?php echo date('Y-m-d', mktime(0, 0, 0, date("m"), date("d"), date("Y")+1)); ?>";
-        }
-			else if(option=="two"){
-            document.getElementById('fieldx').value="<?php echo date('Y-m-d', mktime(0, 0, 0, date("m"), date("d"), date("Y")+2)); ?>";
-        }
-			else if(option=="three"){
-            document.getElementById('fieldx').value="<?php echo date('Y-m-d', mktime(0, 0, 0, date("m"), date("d"), date("Y")+3)); ?>";
-        }
-}
-</script>
-        <div class="form-group">
-              <label class="control-label col-lg-3" >Calibration Lab.</label>
-              <div class="col-lg-9">
-                <select class="form-control select2" style="width: 100%;"  value="<?php echo $row['category'];?>" name="category" required>
-                <option disabled selected value>-- Please Select --</option>
-                <?php
-            
-              $queryc=mysqli_query($con,"select * from category order by cat_name")or die(mysqli_error());
-                while($rowc=mysqli_fetch_array($queryc)){
-                ?>
-                  <option value="<?php echo $rowc['cat_name'];?>"><?php echo $rowc['cat_name'];?></option>
-                <?php }?>
-              </select>
-              </div><!-- /.input group -->
-              </div><!-- /.form group -->
-			  
-			   <div class="form-group">
-          <label class="control-label col-lg-3" for="dept">PIC</label>
-          <div class="col-lg-9">
-            <input type="text" class="form-control" id="dept" name="dept" value="<?php echo $row['dept'];?>" placeholder="PIC" required>  
-          </div>
-        </div> 
-		
-		<div class="form-group">
-          <label class="control-label col-lg-3" for="cert_no">Cert No.</label>
-          <div class="col-lg-9">
-            <input type="text" class="form-control" id="cert_no" name="cert_no" value="<?php echo $row['cert_no'];?>" placeholder="Certification No." required>  
-          </div>
-        </div> 
-        <div class="form-group">
-          <label class="control-label col-lg-3" for="creation_date">Creation Date</label>
-          <div class="col-lg-9">
-            <input type="date" class="form-control" id="creation_date"  name="creation_date"  value="<?php echo $row['creation_date'];?>"  placeholder="Creation Date"  required>  
-          </div>
-        </div>
-         <div class="form-group">
-          <label class="control-label col-lg-3" for="due_date">Due Date</label>
-          <div class="col-lg-9">
-           <input type="date" class="form-control"  name="due_date"  id="datepicker"  value="<?php echo $row['due_date'];?>"  size="20" maxlength="20">
-          </div>
-  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
-
-  
-
-    <script  src="js/index.js"></script>
-
-
-        </div>
-		  <div class="form-group">
-          <label class="control-label col-lg-3" for="file">Remark</label>
-          <div class="col-lg-9">
-              <select class="form-control select2" style="width: 100%;" name="remark" value="<?php echo '$remark' ?>" required>
-                <option disabled selected value>-- Please Select --</option>
-<option id="Inactive" value="Inactive">Inactive</option>
-<option id="PSNM" value="PSNM">PSNM Equipment</option>
-<option id="OOS" value="OOS">Out of Service</option>
-<option id="Consign" value="Consign">Consign</option>
-<option id="Spoil" value="Spoil">Spoil</option>
-<option id="Closed" value="Closed">Closed</option>
-              </select>
-          </div>
-        </div> 
-              
-			 </div>
-              <div class="modal-footer">
-    <button type="submit" class="btn btn-primary">Save Changes</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-        </form>
-            </div>
-      
-        </div><!--end of modal-dialog-->
- </div>
- <!--end of modal--> 
+         </div><!--end of modal-dialog-->
+  </div>
+  <!--end of modal-->  
 <?php }?>					  
                     </tbody>
                    

@@ -107,7 +107,7 @@ endif;
                     <tbody>
 <?php
 		
-		$query=mysqli_query($con,"select * from product  where branch_id='$branch' order by creation_date ")or die(mysqli_error());
+		$query=mysqli_query($con,"select * from product  where branch_id='$branch' order by creation_date")or die(mysqli_error());
 		while($row=mysqli_fetch_array($query)){
 		
 ?>
@@ -177,7 +177,6 @@ endif;
               "orderable": false,
               "targets": 0
           } ],
-          "order": [[ 1, 'asc' ]]
         } );
   
         t.on( 'order.dt search.dt', function () {

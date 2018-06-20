@@ -107,7 +107,7 @@ endif;
                     <tbody>
 <?php
 		
-		$query=mysqli_query($con,"select * from product  where branch_id='$branch'and remark='Inactive' order by equip_name")or die(mysqli_error());
+		$query=mysqli_query($con,"select * from product  where branch_id='$branch'and remark='Inactive' order by creation_date")or die(mysqli_error());
 		while($row=mysqli_fetch_array($query)){
 		
 ?>
@@ -172,8 +172,7 @@ endif;
               "searchable": false,
               "orderable": false,
               "targets": 0
-          } ],
-          "order": [[ 1, 'asc' ]]
+          } ]
         } );
   
         t.on( 'order.dt search.dt', function () {

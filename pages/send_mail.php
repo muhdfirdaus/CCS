@@ -3,18 +3,13 @@ session_start();
 include('../dist/includes/mail_config.php');
 include('../dist/includes/dbcon.php');
 $branch = $_SESSION['branch'];
-$email = $_SESSION['email'];
+// $email = $_SESSION['email'];
+$email =$_POST['email'];
 // Import PHPMailer classes into the global namespace
 // These must be at the top of your script, not inside a function
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-
-if($email == null || $email == ""){
-    echo'<script type="text/javascript">
-	alert("Please update your email first.");
-	</script>';
-}
 
 $query=mysqli_query($con,"select * from product  where branch_id='$branch' and due_date <= DATE_ADD(CURDATE(),INTERVAL 30 DAY) order by equip_id");
 
@@ -82,6 +77,8 @@ try {
     $mail->Subject = 'Overdue Item';
     $mail->Body    = 'This is the list of <b>overdue</b> item for your attention as of '.date('d-m-Y');
     $mail->AltBody = 'This is the list of overdue item for your attention as of '.date('d-m-Y');
+    $mail->Body    .= '<br><br><i>CCMS System</i>';
+    $mail->AltBody .= '<br><br><i>CCMS System</i>';
 
     $mail->send();
     echo'<script type="text/javascript">

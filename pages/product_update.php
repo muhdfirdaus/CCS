@@ -5,18 +5,19 @@ endif;
 
 include('../dist/includes/dbcon.php');
 	$id = $_POST['id'];
-	$equip_name = $_POST['equip_name'];
-	$equip_no = $_POST['equip_no'];
+	$equip_name = str_replace(',', ' ', $_POST['equip_name']);
+	$equip_no = str_replace(',', ' ', $_POST['equip_no']);
 	$accuracy=$_POST['accuracy'];
 	$location = $_POST['location'];
 	$category=$_POST['category'];
-	$dept=$_POST['dept'];
-	$certno=$_POST['cert_no'];
+	$dept=str_replace(',', ' ', $_POST['dept']);
+	$certno=str_replace(',', ' ', $_POST['cert_no']);
 	$creation = $_POST['creation_date'];
 	$ddate = $_POST['due_date'];
 	$remark=$_POST['remark'];
 	$validation=$_POST['validation'];
-	$project=$_POST['project'];
+	$project=str_replace(',', ' ', $_POST['project']);
+
 	
 			
 	mysqli_query($con,"update product set equip_name='$equip_name',equip_no='$equip_no',

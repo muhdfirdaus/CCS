@@ -11,7 +11,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 
-$query=mysqli_query($con,"select * from product  where branch_id='$branch' and due_date <= DATE_ADD(CURDATE(),INTERVAL 30 DAY) order by equip_id");
+$query=mysqli_query($con,"select * from product  where branch_id='$branch' and remark like 'active%' and due_date <= DATE_ADD(CURDATE(),INTERVAL 30 DAY) order by equip_id");
 
 $temporaryFolder = "tmp/";
 if (!file_exists($temporaryFolder)) {

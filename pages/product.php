@@ -150,6 +150,7 @@ endif;
 						            <th>Manufacturer</th>
                         <th>Lab.</th>
                         <th>Location</th>
+                        <th>Cert. No.</th>
                         <th>Project</th>
                         <th>Creation Date</th>
                         <th>Due Date</th>
@@ -182,6 +183,7 @@ endif;
                         <td><?php echo $row['manufacturer'];?></td>
                         <td><?php echo $row['category'];?></td>
                         <td><?php echo $row['location'];?></td>
+                        <td><?php echo $row['cert_no'];?></td>
                         <td><?php echo $row['project'];?></td>
                         <td><?php echo $row['creation_date'];?></td>
                         <td><?php echo $row['due_date'];?></td>
@@ -678,7 +680,7 @@ function changeValues(){
           </div>
         </div> 
 		
-		<div class="form-group">
+		    <div class="form-group">
           <label class="control-label col-lg-3" for="cal_no">Cert No.</label>
           <div class="col-lg-9">
             <input type="text" class="form-control" id="cert_no" name="cert_no" placeholder="Certification No." required>  
@@ -690,42 +692,48 @@ function changeValues(){
             <input type="date" class="form-control" id="creation_date_new"  name="creation_date" value="<?php echo date('Y-m-d'); ?>"  placeholder="Creation Date"  required>  
           </div>
         </div>
-         <div class="form-group">
+        <div class="form-group">
           <label class="control-label col-lg-3" for="due_date">Due Date</label>
           <div class="col-lg-9">
            <input type="date" class="form-control"  name="due_date"  id ="field" value="" size="20" maxlength="20">
           </div>
         </div>
-		  <div class="form-group">
+		    <div class="form-group">
           <label class="control-label col-lg-3" for="file">Status</label>
           <div class="col-lg-9">
               <select class="form-control select2" style="width: 100%;" name="remark" required>
                 <option disabled selected value>-- Please Select --</option>
-				<option id="Active" value="Active">Active</option>
+				        <option id="Active" value="Active">Active</option>
                 <option id="Inactive" value="Inactive">Inactive</option>
                 <option id="Closed" value="Repaired">Closed</option>
               </select>
           </div>
         </div> 
-		 <div class="form-group">
-          <label class="control-label col-lg-3" for="file">Remark</label>
-          <div class="col-lg-9">
-              <select class="form-control select2" style="width: 100%;" name="validation" required>
-                <option disabled selected value>-- Please Select --</option>
-				<option id="NoAccreditation" value="NoAccreditation">No Accreditation</option>
-                <option id="Accreditation" value="Accreditation">Accreditation</option>
-                <option id="PSNM" value="PSNM">PSNM Equipment</option>
-                <option id="OOS" value="OOS">Out of Service</option>
-                <option id="Consign" value="Consign">Consign</option>
-                <option id="Spoil" value="Spoil">Spoil</option>
-
-              </select>
-          </div>
+        <div class="form-group">
+            <label class="control-label col-lg-3" for="file">Remark</label>
+            <div class="col-lg-9">
+                <select class="form-control select2" style="width: 100%;" name="validation" required>
+                  <option disabled selected value>-- Please Select --</option>
+                  <option id="NoAccreditation" value="NoAccreditation">No Accreditation</option>
+                  <option id="Accreditation" value="Accreditation">Accreditation</option>
+                  <option id="PSNM" value="PSNM">PSNM Equipment</option>
+                  <option id="OOS" value="OOS">Out of Service</option>
+                  <option id="Consign" value="Consign">Consign</option>
+                  <option id="Spoil" value="Spoil">Spoil</option>
+                </select>
+            </div>
         </div> 
+        <div class="form-group">
+            <label class="control-label col-lg-3" for="cert">Select file to upload:</label>
+            <div class="col-lg-9">
+            
+            <input type="file" name="fileToUpload" id="fileToUpload">
+            </div>
+        </div>
               </div>
 			 
               <div class="modal-footer">
-    <button type="submit" class="btn btn-primary">Save Changes</button>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               </div>
         </form>

@@ -28,10 +28,12 @@ include('../dist/includes/dbcon.php');
 	$FileType = strtolower($fileType);
 	$uploadOk = 1;
 	$extmsg = "";
+	$stopDB = false;
 
 	if($FileType != "pdf"){
 		echo "<script type='text/javascript'>alert('Wrong format file selected! Only PDF is allowed.');</script>";
 		echo "<script>document.location='product.php'</script>"; 
+		$stopDB = true; 
 	}
 	
 	if(strlen($filename)<1){
@@ -44,19 +46,24 @@ include('../dist/includes/dbcon.php');
 	// Check if file already exists
 	if (file_exists($target_file)) {
 		echo "<script type='text/javascript'>alert('Selected file already existed!');</script>";
-		echo "<script>document.location='product.php'</script>"; 
+		echo "<script>document.location='product.php'</script>";
+		$stopDB = true; 
 	}
 
 	if($uploadOk==1){
 		if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-			echo "<br>The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+			//
 		} else {
-			echo "<br>Sorry, there was an error uploading your file.";
+		$extmsg .= "<br>Sorry, there was an error uploading your file.";
+		$filename = 'NULL';
 		}
+	}
+	else{
+		$filename = 'NULL';
 	}
 
 	// *****************************************file uploading stops here
-
+	if($stopDB != true){
 		$query2=mysqli_query($con,"select * from product where equip_no='$equip_no' and branch_id='$branch'")or die(mysqli_error($con));
 		$count=mysqli_num_rows($query2);
 
@@ -67,13 +74,11 @@ include('../dist/includes/dbcon.php');
 		}
 		else
 		{	
-
-			
-
 			mysqli_query($con,"INSERT INTO product(equip_no,equip_name,model,accuracy,manufacturer,rangee,location,branch_id,category,dept,cert_no,creation_date,due_date,remark,validation, project, file_name)
 			VALUES('$equip_no','$equip_name','$model','$accuracy','$manufacturer','$rangee','$location','$branch','$category','$dept','$certno','$creation','$ddate','$remark','$validation', '$project', '$filename')")or die(mysqli_error($con));
 
 			echo "<script type='text/javascript'>alert('Successfully added new product!');</script>";
-					  echo "<script>document.location='product.php'</script>";  
+			echo "<script>document.location='product.php'</script>";  
 		}
+	}
 ?>

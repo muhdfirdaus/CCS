@@ -183,7 +183,10 @@ endif;
                         <td><?php echo $row['manufacturer'];?></td>
                         <td><?php echo $row['category'];?></td>
                         <td><?php echo $row['location'];?></td>
-                        <td><?php echo $row['cert_no'];?></td>
+                        <?php if($row['file_name'] != null){
+                        ?><td><a href='../uploads/<?php echo $row['file_name']; ?>.pdf'><?php echo $row['cert_no'];?></a></td> <?php
+                        } else{?>
+                        <td><?php echo $row['cert_no'];}?></td>
                         <td><?php echo $row['project'];?></td>
                         <td><?php echo $row['creation_date'];?></td>
                         <td><?php echo $row['due_date'];?></td>

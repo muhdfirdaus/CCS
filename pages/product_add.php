@@ -54,8 +54,8 @@ include('../dist/includes/dbcon.php');
 		if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
 			//
 		} else {
-		$extmsg .= "<br>Sorry, there was an error uploading your file.";
-		$filename = 'NULL';
+			$extmsg .= "<br>Sorry, there was an error uploading your file.";
+			$filename = 'NULL';
 		}
 	}
 	else{

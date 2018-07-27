@@ -184,7 +184,7 @@ endif;
                         <td><?php echo $row['category'];?></td>
                         <td><?php echo $row['location'];?></td>
                         <?php if($row['file_name'] != null){
-                        ?><td><a href='../uploads/<?php echo $row['file_name']; ?>.pdf'><?php echo $row['cert_no'];?></a></td> <?php
+                        ?><td><a target='_blank' href='../uploads/<?php echo $row['file_name']; ?>.pdf'><?php echo $row['cert_no'];?></a></td> <?php
                         } else{?>
                         <td><?php echo $row['cert_no'];}?></td>
                         <td><?php echo $row['project'];?></td>
@@ -684,10 +684,16 @@ function changeValues(){
         </div> 
 		
 		    <div class="form-group">
-          <label class="control-label col-lg-3" for="cal_no">Cert No.</label>
+          <label class="control-label col-lg-3" for="cal_no">Certification No.</label>
           <div class="col-lg-9">
             <input type="text" class="form-control" id="cert_no" name="cert_no" placeholder="Certification No." required>  
           </div>
+        </div> 
+        <div class="form-group">
+            <label class="control-label col-lg-3" for="cert">Certification</label>
+            <div class="col-lg-9">
+              <input type="file" name="fileToUpload" id="fileToUpload">
+            </div>*only PDF file accepted
         </div> 
         <div class="form-group">
           <label class="control-label col-lg-3" for="creation_date">Creation Date</label>
@@ -724,13 +730,6 @@ function changeValues(){
                   <option id="Consign" value="Consign">Consign</option>
                   <option id="Spoil" value="Spoil">Spoil</option>
                 </select>
-            </div>
-        </div> 
-        <div class="form-group">
-            <label class="control-label col-lg-3" for="cert">Select file to upload:</label>
-            <div class="col-lg-9">
-            
-            <input type="file" name="fileToUpload" id="fileToUpload">
             </div>
         </div>
               </div>

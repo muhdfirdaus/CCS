@@ -9,7 +9,7 @@ mysqli_select_db($conn, 'inventory');
 $setSql = "SELECT `ur_Id`,`ur_username`,`ur_password` FROM `tbl_user`";
 $setRec = mysqli_query($conn,$setSql);
 
-$stmt=$db_con->prepare("select equip_id,equip_name,project,equip_no,model,accuracy,rangee,manufacturer,category,location,dept,status,cert_no,creation_date,due_date,remark from product where remark='Active' and branch_id='$branch'");
+$stmt=$db_con->prepare("select equip_id,equip_name,project,equip_no,model,accuracy,rangee,manufacturer,category,location,dept,status,cert_no,creation_date,due_date,remark from product where remark='Active' and branch_id='$branch' order by due_date");
 $stmt->execute();
 
 

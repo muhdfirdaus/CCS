@@ -32,7 +32,7 @@ include('../dist/includes/dbcon.php');
 
 	if($FileType != "pdf"){
 		echo "<script type='text/javascript'>alert('Wrong format file selected! Only PDF is allowed.');</script>";
-		echo "<script>document.location='product.php'</script>"; 
+		echo "<script>window.history.back();</script>"; 
 		$stopDB = true; 
 	}
 	
@@ -46,7 +46,7 @@ include('../dist/includes/dbcon.php');
 	// Check if file already exists
 	if (file_exists($target_file)) {
 		echo "<script type='text/javascript'>alert('Selected file already existed!');</script>";
-		echo "<script>document.location='product.php'</script>";
+		echo "<script>window.history.back();</script>";
 		$stopDB = true; 
 	}
 

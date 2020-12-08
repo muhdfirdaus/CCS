@@ -150,7 +150,6 @@ endif;
 						            <th>Manufacturer</th>
                         <th>Lab.</th>
                         <th>Location</th>
-                        <th>Cert. No.</th>
                         <th>Project</th>
                         <th>Creation Date</th>
                         <th>Due Date</th>
@@ -183,10 +182,6 @@ endif;
                         <td><?php echo $row['manufacturer'];?></td>
                         <td><?php echo $row['category'];?></td>
                         <td><?php echo $row['location'];?></td>
-                        <?php if($row['file_name'] != null){
-                        ?><td><a target='_blank' href='../uploads/<?php echo $row['file_name']; ?>.pdf'><?php echo $row['cert_no'];?></a></td> <?php
-                        } else{?>
-                        <td><?php echo $row['cert_no'];}?></td>
                         <td><?php echo $row['project'];?></td>
                         <td><?php echo $row['creation_date'];?></td>
                         <td><?php echo $row['due_date'];?></td>
@@ -339,15 +334,15 @@ function changeValue(){
           <label class="control-label col-lg-3" for="file">Status</label>
           <div class="col-lg-9"><input type="hidden" class="form-control" id="id" name="id" value="<?php echo $row['equip_id'];?>" required> 
               <select class="form-control select2" style="width: 100%;"  name="remark" required>              
-				<option id="Active" value="Active">Active</option>
-                <option id="Inactive" value="Inactive">Inactive</option>
-                <option id="Closed" value="Closed">Closed</option>
-                <option id="PSNM" value="PSNM">PSNM Equipment</option>
-                <option id="OOS" value="OOS">Out of Service</option>
-                <option id="Consign" value="Consign">Consign</option>
-                <option id="Spoiled" value="Spoiled">Spoiled</option>
-                <option id="Missing" value="Missing">Missing</option>
-                <option id="Repair" value="Repair">Repair</option>
+				        <option id="Active" value="Active" <?php if($row['remark']==="Active"){echo "selected";}?>>Active</option>
+                <option id="Inactive" value="Inactive" <?php if($row['remark']==="Inactive"){echo "selected";}?>>Inactive</option>
+                <option id="Closed" value="Closed" <?php if($row['remark']==="Closed"){echo "selected";}?>>Closed</option>
+                <option id="PSNM" value="PSNM" <?php if($row['remark']==="PSNM"){echo "selected";}?>>PSNM Equipment</option>
+                <option id="OOS" value="OOS" <?php if($row['remark']==="OOS"){echo "selected";}?>>Out of Service</option>
+                <option id="Consign" value="Consign" <?php if($row['remark']==="Consign"){echo "selected";}?>>Consign</option>
+                <option id="Spoiled" value="Spoiled" <?php if($row['remark']==="Spoiled"){echo "selected";}?>>Spoiled</option>
+                <option id="Missing" value="Missing" <?php if($row['remark']==="Missing"){echo "selected";}?>>Missing</option>
+                <option id="Repair" value="Repair" <?php if($row['remark']==="Repair"){echo "selected";}?>>Repair</option>
               </select>
           </div>
         </div> 
@@ -678,22 +673,17 @@ function changeValues(){
                 <option id="Engineering" value="Engineering">Engineering</option>
                 <option id="TEST" value="TEST">TEST ENG</option>
                 <option id="Production" value="Production">Production</option>
+                <option id="Logistic" value="Logistic">Logistic</option>
 
               </select>
           </div>
         </div> 
 		
-		    <div class="form-group">
-          <label class="control-label col-lg-3" for="cal_no">Certification No.</label>
+		<div class="form-group">
+          <label class="control-label col-lg-3" for="cal_no">Cert No.</label>
           <div class="col-lg-9">
             <input type="text" class="form-control" id="cert_no" name="cert_no" placeholder="Certification No." required>  
           </div>
-        </div> 
-        <div class="form-group">
-            <label class="control-label col-lg-3" for="cert">Certification</label>
-            <div class="col-lg-9">
-              <input type="file" name="fileToUpload" id="fileToUpload">
-            </div>*only PDF file accepted
         </div> 
         <div class="form-group">
           <label class="control-label col-lg-3" for="creation_date">Creation Date</label>
@@ -701,41 +691,42 @@ function changeValues(){
             <input type="date" class="form-control" id="creation_date_new"  name="creation_date" value="<?php echo date('Y-m-d'); ?>"  placeholder="Creation Date"  required>  
           </div>
         </div>
-        <div class="form-group">
+         <div class="form-group">
           <label class="control-label col-lg-3" for="due_date">Due Date</label>
           <div class="col-lg-9">
            <input type="date" class="form-control"  name="due_date"  id ="field" value="" size="20" maxlength="20">
           </div>
         </div>
-		    <div class="form-group">
+		  <div class="form-group">
           <label class="control-label col-lg-3" for="file">Status</label>
           <div class="col-lg-9">
               <select class="form-control select2" style="width: 100%;" name="remark" required>
                 <option disabled selected value>-- Please Select --</option>
-				        <option id="Active" value="Active">Active</option>
+				<option id="Active" value="Active">Active</option>
                 <option id="Inactive" value="Inactive">Inactive</option>
                 <option id="Closed" value="Repaired">Closed</option>
               </select>
           </div>
         </div> 
-        <div class="form-group">
-            <label class="control-label col-lg-3" for="file">Remark</label>
-            <div class="col-lg-9">
-                <select class="form-control select2" style="width: 100%;" name="validation" required>
-                  <option disabled selected value>-- Please Select --</option>
-                  <option id="NoAccreditation" value="NoAccreditation">No Accreditation</option>
-                  <option id="Accreditation" value="Accreditation">Accreditation</option>
-                  <option id="PSNM" value="PSNM">PSNM Equipment</option>
-                  <option id="OOS" value="OOS">Out of Service</option>
-                  <option id="Consign" value="Consign">Consign</option>
-                  <option id="Spoil" value="Spoil">Spoil</option>
-                </select>
-            </div>
-        </div>
+		 <div class="form-group">
+          <label class="control-label col-lg-3" for="file">Remark</label>
+          <div class="col-lg-9">
+              <select class="form-control select2" style="width: 100%;" name="validation" required>
+                <option disabled selected value>-- Please Select --</option>
+				<option id="NoAccreditation" value="NoAccreditation">No Accreditation</option>
+                <option id="Accreditation" value="Accreditation">Accreditation</option>
+                <option id="PSNM" value="PSNM">PSNM Equipment</option>
+                <option id="OOS" value="OOS">Out of Service</option>
+                <option id="Consign" value="Consign">Consign</option>
+                <option id="Spoil" value="Spoil">Spoil</option>
+
+              </select>
+          </div>
+        </div> 
               </div>
 			 
               <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Save Changes</button>
+    <button type="submit" class="btn btn-primary">Save Changes</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               </div>
         </form>

@@ -107,8 +107,9 @@ endif;
                     <tbody>
 <?php
 		
-		$query=mysqli_query($con,"select * from product  where branch_id='$branch' and remark like 'active%' order by creation_date")or die(mysqli_error());
+		$query=mysqli_query($con,"select * from product  where branch_id='$branch' and remark='Active' order by due_date")or die(mysqli_error());
 		while($row=mysqli_fetch_array($query)){
+      if($row['remark']=="Active"){
 		
 ?>
                       <tr>
@@ -178,7 +179,7 @@ endif;
                $query2=mysqli_query($con,"select * from location order by location_name")or die(mysqli_error());
                  while($row2=mysqli_fetch_array($query2)){
                  ?>
-                   <option value="<?php echo $row2['location_name'];?>"<?php if($row2['location_name']==$row['location']){echo "selected";} ?>><?php echo $row2['location_name'];?></option>
+                   <option value="<?php echo $row2['location_name'];?>"<?php if($row2['location_name']===$row['location']){echo "selected";} ?>><?php echo $row2['location_name'];?></option>
                  <?php }?>
                </select>
            </div>
@@ -306,7 +307,8 @@ endif;
          </div><!--end of modal-dialog-->
   </div>
   <!--end of modal-->  
-<?php }?>					  
+<?php }
+      }   ?>					  
                     </tbody>
                    
                   </table>

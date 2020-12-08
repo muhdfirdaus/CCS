@@ -15,7 +15,7 @@ $filename = "EquipmentReport_".date('Ymd'); //File Name
 
 
 //create MySQL connection   
-$sql = "select * from product  where branch_id='$branch' order by creation_date";
+$sql = "select * from product  where branch_id='$branch' order by due_date asc";
 $Connect = @mysql_connect($DB_Server, $DB_Username, $DB_Password) or die("Couldn't connect to MySQL:<br>" . mysql_error() . "<br>" . mysql_errno());
 //select database   
 $Db = @mysql_select_db($DB_DBName, $Connect) or die("Couldn't select database:<br>" . mysql_error(). "<br>" . mysql_errno());   

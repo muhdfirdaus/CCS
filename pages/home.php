@@ -64,9 +64,17 @@ endif;
         <div class="container">
           <!-- Content Header (Page header) -->
          
-
           <!-- Main content -->
           <section class="content">
+          <?php $query=mysqli_query($con,"select count(*) as tot from product  where branch_id='$branch' and remark like 'active%' and due_date <= DATE_ADD(CURDATE(),INTERVAL 30 DAY) order by creation_date")or die(mysqli_error());
+          $row=mysqli_fetch_array($query);
+          $tot = $row['tot'];
+          if($tot>=1){?>
+          <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Warning!</strong> There is <?php echo $tot;?> expiring item(s) that need your attention. Please go to "Overdue" for further action.
+          </div>
+          <?php } ?>
             <div class="row">
 	      <div class="col-md-8">
               <div class="box box-primary">
